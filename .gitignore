@@ -1,0 +1,56 @@
+a# Python-generated files
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+
+# IDEs
+.idea
+.vscode
+.DS_Store
+
+# Custom
+temp
+
+# Supporting Scripts
+use_case_categories_view.py
+git_push.sh
+
+api/
+#tests/
+#*.json
+archive/
+tests/archive/
+# *test*
+scripts/
+tests/README.md
+RUN_SCRIPTS.md
+Fixing Streamlit Errors and Template.md
+
+# generated files
+*.log
+.coverage
+htmlcov/
+
+# IDE/Editor files
+.swp
+.swo
+*~
+
+run_all_tests.py
+test_lorem.py
+tests/__init__.py
+tests/exports/
+tests/generated/
+tests/results/
+tests/naf_report_lorem_test_20251224_125406.json
+.devcontainer
