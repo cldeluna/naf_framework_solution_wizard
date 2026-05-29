@@ -55,64 +55,44 @@ def main() -> None:
         st.subheader("Solution Wizard")
         st.markdown(
             """
-            The Solution Wizard will help you define the WHY, WHO, HOW, and WHAT of your automation project. It will help you think through your automation project using the Network Automation Forum's (NAF) [Network Automation Framework](https://reference.networkautomation.forum/Framework/Framework/) (yes NAF NAF).
+            Define the **WHY, WHO, HOW, and WHAT** of your automation project using the NAF
+            [Network Automation Framework](https://reference.networkautomation.forum/Framework/Framework/).
 
-            - **Purpose:** Guide structured thinking across the NAF components so you identify stakeholders, scope, data flows, and build/buy/support decisions.
-            - **Second set of eyes:** Use it as a checklist to ensure you've considered all key components; the framework helps make sure nothing critical is missed.
-            - **Authoring aid:** Your selections here can help generate a high level concept document quickly to share with co-workers, management, and stakeholders.
+            The wizard guides structured thinking across every NAF component — stakeholders, scope,
+            data flows, and build/buy/support decisions — so nothing critical is missed. Your
+            selections generate a shareable solution design document for your team, stakeholders,
+            and management.
+            """
+        )
+        st.caption(
+            "Tip: If you can't answer a question technically, note that the function is needed and use the Custom option to describe what you can."
+        )
 
-            Remember: To complete the Business Case Calculator or develop any Business Case effectively, you should have a clear understanding of what the automation will do (what problem is it solving), who it will serve, and how it will be built (or bought) and supported going forward.
+    # CTA button — placed before the detail sections so it's visible without scrolling
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("🚀 Start Building Your Solution", type="primary", use_container_width=True):
+            st.switch_page("pages/20_NAF_Solution_Wizard.py")
 
-            Tip:  If you can't answer some of these questions from a technical perspective, just note that the function is needed and use the Custom option to describe what you can
+    st.markdown("### Design Your Automation Solution")
 
+    with st.expander("What does the wizard cover?", expanded=False):
+        st.markdown(
+            """
+**Project context:** Initiative (problem, scope, deployment), Stakeholders, My Role, Dependencies, and Timeline.
+
+**NAF Components:** Presentation, Intent, Observability, Orchestration, Collector, and Executor.
+
+The wizard generates a **complete solution design document** (JSON + Markdown + timeline) you can share with team members, stakeholders, management, and other IT teams.
             """
         )
 
-    st.markdown("### Design Your Automation Solution")
-    st.markdown(
-        """
-        The Solution Wizard guides you through each NAF component as well as additional considerations for your automation solution:
-        
-        - **Initiative**: Define the problem, scope, expected use, and deployment strategy
-        - **Stakeholders**: Identify who is supporting the project
-        - **My Role**: Specify your skills and development approach
-        - **Dependencies**: List required infrastructure and systems
-        - **Timeline**: Plan staffing, milestones, and delivery schedule
-
-        NAF Components:
-        - **Presentation**: Define user types, interaction modes, and presentation tools
-        - **Intent**: Specify development approaches and provided formats
-        - **Observability**: Plan monitoring, go/no-go criteria, and tools
-        - **Orchestration**: Design workflow automation
-        - **Collector**: Plan data collection methods and tools
-        - **Executor**: Define execution methods
-
-
-        The wizard generates a **complete solution design document** (JSON + Markdown + timeline) that you can share with:
-        - Team members who will design or build the automation
-        - Stakeholders who need to understand what the automation will do
-        - Management who need a concise overview of scope, impact, and effort
-        - Other IT Teams with supporting required interfaces and services
-        """
-    )
-
-    st.markdown("### Start Designing Your Solution")
-    
-    # Add button to navigate to the wizard page
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        if st.button("🚀 Open Solution Wizard", type="primary", use_container_width=True):
-            st.switch_page("pages/20_NAF_Solution_Wizard.py")
-    
-    st.markdown("### Saving and Loading Your Work")
-    st.markdown(
-        """
-        - The **Solution Wizard** page is where you'll design your automation solution.
-        - You can save your work as a JSON file and load it later to continue editing.
-        - The JSON file contains all your wizard inputs and can be shared with others.
-        - Use the **Load Session** button in the Solution Wizard sidebar to restore a saved design.
-        """
-    )
+    with st.expander("Saving and loading your work", expanded=False):
+        st.markdown(
+            """
+Save your work as a JSON file and load it later to continue editing. The JSON contains all wizard inputs and can be shared with others. Use the **Load Session** button in the Solution Wizard sidebar to restore a saved design.
+            """
+        )
 
 
 if __name__ == "__main__":
