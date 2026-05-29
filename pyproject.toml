@@ -12,13 +12,6 @@ dependencies = [
     "streamlit>=1.57.0",
 ]
 
-[build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
-
-[project.scripts]
-naf-test = "cli:run_naf_test"
-naf-test-quick = "cli:run_naf_test_quick"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
