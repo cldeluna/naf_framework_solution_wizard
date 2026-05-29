@@ -1692,14 +1692,65 @@ def solution_wizard_main():
         st.markdown(
             """
 **Intent Layer Characteristics**
-- Represents any network aspect in a structured form.
-- Covers addressing, routing, DC infrastructure, virtual services, policies, templates.
-- Abstracts what you want the network to do from how it gets done.
+- Represents any network aspect in a structured form (addressing, DC infrastructure, routing, virtual services, secrets, operational limits, templates/mappings, policies, artifacts).
+- Supports full CRUD operations and exposes a standard, well-documented API (e.g., REST, GraphQL).
+- Uses neutral models that derive into vendor-specific configurations.
+- Provides a unified desired-state view across potentially distributed data sources.
+- Includes governance metadata (timestamps, origin, ownership, validity windows).
+
+***When first starting out abstraction may be low and so intent could be as simple as a file with vlan numbers and names you want to provision.***
             """
         )
-        st.info("Full form available in the Intent expander below.")
+
+        # --- How will Intent be developed? ---
+        st.subheader("How will Intent be developed?")
+        _di_cols = st.columns(3)
+        _di_dev_opts = [
+            "Templates", "Policies", "Service Profiles",
+            "Model-driven (data models)", "Declarative (YAML/JSON)", "Forms/GUI",
+            "Domain-specific language (DSL)", "GitOps workflow (PRs/Reviews)",
+            "API-driven", "Import from Source of Truth (CMDB/IPAM/Inventory/Git)",
+        ]
+        for i, opt in enumerate(_di_dev_opts):
+            with _di_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_intent_dev_{opt}",
+                            value=st.session_state.get(f"intent_dev_{opt}", False))
+        _di_cust_en = st.checkbox("Custom (fill in)", key="dlg_intent_dev_custom_enable",
+                                  value=st.session_state.get("intent_dev_custom_enable", False))
+        if _di_cust_en:
+            st.text_input("Custom intent development approach", key="dlg_intent_dev_custom",
+                          value=st.session_state.get("intent_dev_custom", ""))
+
+        # --- How will intent be consumed by automation? ---
+        st.subheader("How will intent be consumed by automation?")
+        _di_p_cols = st.columns(3)
+        _di_prov_opts = [
+            "Text file", "Serialized format (JSON, YAML)", "CSV", "Excel", "API",
+        ]
+        for i, opt in enumerate(_di_prov_opts):
+            with _di_p_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_intent_prov_{opt}",
+                            value=st.session_state.get(f"intent_prov_{opt}", False))
+        with _di_p_cols[0]:
+            _di_p_cust_en = st.checkbox("Custom (fill in)", key="dlg_intent_prov_custom_enable",
+                                        value=st.session_state.get("intent_prov_custom_enable", False))
+            if _di_p_cust_en:
+                st.text_input("Custom provider format", key="dlg_intent_prov_custom",
+                              value=st.session_state.get("intent_prov_custom", ""))
+
+        # --- Submit ---
+        st.divider()
         if st.button("Submit Intent", type="primary", use_container_width=True):
-            st.session_state["_demo_completed"]["intent"] = True
+            ss = st.session_state
+            for opt in _di_dev_opts:
+                ss[f"intent_dev_{opt}"] = ss.get(f"dlg_intent_dev_{opt}", False)
+            ss["intent_dev_custom_enable"] = ss.get("dlg_intent_dev_custom_enable", False)
+            ss["intent_dev_custom"] = ss.get("dlg_intent_dev_custom", "")
+            for opt in _di_prov_opts:
+                ss[f"intent_prov_{opt}"] = ss.get(f"dlg_intent_prov_{opt}", False)
+            ss["intent_prov_custom_enable"] = ss.get("dlg_intent_prov_custom_enable", False)
+            ss["intent_prov_custom"] = ss.get("dlg_intent_prov_custom", "")
+            ss["_demo_completed"]["intent"] = True
             st.rerun()
 
     @st.dialog("Collector", width="large")
