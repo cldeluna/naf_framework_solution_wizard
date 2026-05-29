@@ -1428,9 +1428,334 @@ def solution_wizard_main():
     with title_cols[1]:
         st.markdown("**Network Automation Forum's Network Automation Framework**")
 
-    # ── Puzzle Progress (visual indicator only) ────────────────────
-    render_puzzle_progress(get_completion_state(), clickable=False)
-    st.info("Complete the sections below to assemble your puzzle!")
+    # ── Puzzle Progress (interactive – TODO: remove demo scaffolding after testing) ──
+
+    # Initialize demo completion tracking (separate from expander-based completion)
+    if "_demo_completed" not in st.session_state:
+        st.session_state["_demo_completed"] = {key: False for key in PUZZLE_SECTIONS}
+
+    # ── Dialog definitions (placeholder forms for testing) ──────────
+    # TODO: Replace placeholder dialogs with full section forms once tested.
+    #       When doing so, remove the matching expander sections below to
+    #       avoid DuplicateWidgetID errors on shared session_state keys.
+
+    @st.dialog("Presentation", width="large")
+    def _dlg_presentation():
+        st.markdown(
+            """
+**Presentation Layer Characteristics**
+- Provides robust, flexible authentication and authorization.
+- Can take many forms: GUIs, ITSM/change systems, chat/messaging, portals, reports.
+- May support read and write: view data, initiate tasks, approve changes.
+- Interfaces with other framework blocks as needed; it is the primary human touchpoint.
+            """
+        )
+
+        # --- Intended users ---
+        st.subheader("Intended users")
+        _du_cols = st.columns(3)
+        _du_user_opts = [
+            "Network Engineers", "IT", "Operations", "Help Desk",
+            "Other IT Organizations", "Any User", "Authorized Users", "Automation Pipeline",
+        ]
+        for i, opt in enumerate(_du_user_opts):
+            with _du_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_pres_user_{opt}",
+                            value=st.session_state.get(f"pres_user_{opt}", False))
+        with _du_cols[0]:
+            _du_cust_en = st.checkbox("Custom (fill in)", key="dlg_pres_user_custom_enable",
+                                      value=st.session_state.get("pres_user_custom_enable", False))
+            if _du_cust_en:
+                st.text_input("Custom users", key="dlg_pres_user_custom",
+                              value=st.session_state.get("pres_user_custom", ""))
+
+        # --- Interaction modes ---
+        st.subheader("How will your users interact with your solution?")
+        _di_cols = st.columns(3)
+        _di_opts = [
+            "CLI", "Purpose-built Web GUI", "Other GUI",
+            "API", "Commercial Product/GUI", "Open Source Product/GUI",
+        ]
+        for i, opt in enumerate(_di_opts):
+            with _di_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_pres_interact_{opt}",
+                            value=st.session_state.get(f"pres_interact_{opt}", False))
+        with _di_cols[0]:
+            _di_cust_en = st.checkbox("Custom (fill in)", key="dlg_pres_interact_custom_enable",
+                                      value=st.session_state.get("pres_interact_custom_enable", False))
+            if _di_cust_en:
+                st.text_input("Custom interaction", key="dlg_pres_interact_custom",
+                              value=st.session_state.get("pres_interact_custom", ""))
+
+        # --- Tools ---
+        st.subheader("What tools will the Presentation layer use?")
+        _dt_cols = st.columns(3)
+        _dt_opts = [
+            "Python", "Python Web Framework (Streamlit, Flask, etc.)",
+            "General Web Framework", "Automation Framework",
+            "REST API", "GraphQL API", "Custom API",
+        ]
+        for i, opt in enumerate(_dt_opts):
+            with _dt_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_pres_tool_{opt}",
+                            value=st.session_state.get(f"pres_tool_{opt}", False))
+        with _dt_cols[0]:
+            _dt_cust_en = st.checkbox("Custom (fill in)", key="dlg_pres_tool_custom_enable",
+                                      value=st.session_state.get("pres_tool_custom_enable", False))
+            if _dt_cust_en:
+                st.text_input("Custom tool(s)", key="dlg_pres_tool_custom",
+                              value=st.session_state.get("pres_tool_custom", ""))
+
+        # --- Authentication ---
+        st.subheader("How will your users authenticate?")
+        _da_cols = st.columns(2)
+        _da_opts = [
+            "No Authentication (suitable only for demos and very specific use cases)",
+            "Repository authorization/sharing",
+            "Built-in (to the automation) Authentication via Username/Password or TOKEN",
+            "Custom Authentication to external system (AD, SSH Keys, OAUTH2)",
+        ]
+        for i, opt in enumerate(_da_opts):
+            with _da_cols[i % 2]:
+                st.checkbox(opt, key=f"dlg_pres_auth_{opt}",
+                            value=st.session_state.get(f"pres_auth_{opt}", False))
+        with _da_cols[0]:
+            _da_oth_en = st.checkbox("Other (fill in details)", key="dlg_pres_auth_other_enable",
+                                     value=st.session_state.get("pres_auth_other_enable", False))
+            if _da_oth_en:
+                st.text_input("Other authentication details", key="dlg_pres_auth_other_text",
+                              value=st.session_state.get("pres_auth_other_text", ""))
+
+        # --- Submit ---
+        st.divider()
+        if st.button("Submit Presentation", type="primary", use_container_width=True):
+            # Copy dialog selections to the real session_state keys
+            ss = st.session_state
+            for opt in _du_user_opts:
+                ss[f"pres_user_{opt}"] = ss.get(f"dlg_pres_user_{opt}", False)
+            ss["pres_user_custom_enable"] = ss.get("dlg_pres_user_custom_enable", False)
+            ss["pres_user_custom"] = ss.get("dlg_pres_user_custom", "")
+            for opt in _di_opts:
+                ss[f"pres_interact_{opt}"] = ss.get(f"dlg_pres_interact_{opt}", False)
+            ss["pres_interact_custom_enable"] = ss.get("dlg_pres_interact_custom_enable", False)
+            ss["pres_interact_custom"] = ss.get("dlg_pres_interact_custom", "")
+            for opt in _dt_opts:
+                ss[f"pres_tool_{opt}"] = ss.get(f"dlg_pres_tool_{opt}", False)
+            ss["pres_tool_custom_enable"] = ss.get("dlg_pres_tool_custom_enable", False)
+            ss["pres_tool_custom"] = ss.get("dlg_pres_tool_custom", "")
+            for opt in _da_opts:
+                ss[f"pres_auth_{opt}"] = ss.get(f"dlg_pres_auth_{opt}", False)
+            ss["pres_auth_other_enable"] = ss.get("dlg_pres_auth_other_enable", False)
+            ss["pres_auth_other_text"] = ss.get("dlg_pres_auth_other_text", "")
+            # Mark puzzle piece as complete
+            ss["_demo_completed"]["presentation"] = True
+            st.rerun()
+
+    @st.dialog("Observability", width="large")
+    def _dlg_observability():
+        st.markdown(
+            """
+**Observability Layer Characteristics**
+- Supports historical data persistence with powerful programmatic access for analytics, reporting, and troubleshooting.
+- Provides a capable query language to extract and explore data.
+- Surfaces current-state insights and emits events when drift is detected between observed and intended state.
+- Data may be enriched with context from intended state and third parties (e.g., EoL, CVEs, maintenance notices).
+            """
+        )
+
+        # --- How will you determine network state? ---
+        st.subheader("How will you determine network state?")
+        _do_cols = st.columns(3)
+        _do_state_opts = ["Manual", "Purpose-built Python Script", "API call"]
+        for i, opt in enumerate(_do_state_opts):
+            with _do_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_obs_state_{opt}",
+                            value=st.session_state.get(f"obs_state_{opt}", False))
+
+        # --- Go/No-Go criteria ---
+        st.subheader("Describe the basic go/no go logic")
+        st.text_area(
+            "Go/No-Go criteria",
+            key="dlg_obs_go_no_go",
+            value=st.session_state.get("obs_go_no_go", ""),
+            placeholder="e.g., Proceed if all pre-checks pass and no policy violations are detected",
+        )
+
+        # --- Additional gating logic ---
+        st.subheader("Will there be additional logic applied to state to determine if the automation can move forward?")
+        _do_add_opts = ["No", "Yes"]
+        _do_add_idx = _do_add_opts.index(st.session_state.get("obs_add_logic_choice", "No")) if st.session_state.get("obs_add_logic_choice", "No") in _do_add_opts else 0
+        _do_add_choice = st.radio(
+            "Additional gating logic?",
+            _do_add_opts,
+            horizontal=True,
+            key="dlg_obs_add_logic_choice",
+            index=_do_add_idx,
+        )
+        if _do_add_choice == "Yes":
+            st.text_area(
+                "Describe additional logic",
+                key="dlg_obs_add_logic_text",
+                value=st.session_state.get("obs_add_logic_text", ""),
+            )
+
+        # --- Observability tools ---
+        st.subheader("What tools will be used to support the observability layer?")
+        _do_t_cols = st.columns(3)
+        _do_tool_opts = [
+            "Open Source Software",
+            "Commercial/Enterprise Product",
+            "Network Vendor Product (Cisco Catalyst Center, Arista CVP, etc.)",
+            "Custom Python Scripts",
+        ]
+        for i, opt in enumerate(_do_tool_opts):
+            with _do_t_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_obs_tool_{opt}",
+                            value=st.session_state.get(f"obs_tool_{opt}", False))
+        _do_t_oth_en = st.checkbox("Other (fill in)", key="dlg_obs_tool_other_enable",
+                                   value=st.session_state.get("obs_tool_other_enable", False))
+        if _do_t_oth_en:
+            st.text_input("Other observability tool(s)", key="dlg_obs_tool_other_text",
+                          value=st.session_state.get("obs_tool_other_text", ""))
+
+        # --- Submit ---
+        st.divider()
+        if st.button("Submit Observability", type="primary", use_container_width=True):
+            ss = st.session_state
+            # Copy state method selections
+            for opt in _do_state_opts:
+                ss[f"obs_state_{opt}"] = ss.get(f"dlg_obs_state_{opt}", False)
+            # Copy go/no-go
+            ss["obs_go_no_go"] = ss.get("dlg_obs_go_no_go", "")
+            # Copy additional logic
+            ss["obs_add_logic_choice"] = ss.get("dlg_obs_add_logic_choice", "No")
+            ss["obs_add_logic_text"] = ss.get("dlg_obs_add_logic_text", "")
+            # Copy tool selections
+            for opt in _do_tool_opts:
+                ss[f"obs_tool_{opt}"] = ss.get(f"dlg_obs_tool_{opt}", False)
+            ss["obs_tool_other_enable"] = ss.get("dlg_obs_tool_other_enable", False)
+            ss["obs_tool_other_text"] = ss.get("dlg_obs_tool_other_text", "")
+            # Mark puzzle piece as complete
+            ss["_demo_completed"]["observability"] = True
+            st.rerun()
+
+    @st.dialog("Orchestration", width="large")
+    def _dlg_orchestration():
+        st.markdown(
+            """
+**Orchestration Layer Characteristics**
+- Coordinates and sequences automation tasks across the framework.
+- Manages workflow logic, error handling, and rollback procedures.
+- Connects intent to execution through collector and executor components.
+            """
+        )
+        st.info("Full form available in the Orchestration expander below.")
+        if st.button("Submit Orchestration", type="primary", use_container_width=True):
+            st.session_state["_demo_completed"]["orchestration"] = True
+            st.rerun()
+
+    @st.dialog("Intent", width="large")
+    def _dlg_intent():
+        st.markdown(
+            """
+**Intent Layer Characteristics**
+- Represents any network aspect in a structured form.
+- Covers addressing, routing, DC infrastructure, virtual services, policies, templates.
+- Abstracts what you want the network to do from how it gets done.
+            """
+        )
+        st.info("Full form available in the Intent expander below.")
+        if st.button("Submit Intent", type="primary", use_container_width=True):
+            st.session_state["_demo_completed"]["intent"] = True
+            st.rerun()
+
+    @st.dialog("Collector", width="large")
+    def _dlg_collector():
+        st.markdown(
+            """
+**Collector Layer Characteristics**
+- Gathers data from network devices and external sources.
+- Supports multiple collection methods (SNMP, CLI, API, streaming telemetry).
+- Normalizes and structures collected data for use by other components.
+            """
+        )
+        st.info("Full form available in the Collector expander below.")
+        if st.button("Submit Collector", type="primary", use_container_width=True):
+            st.session_state["_demo_completed"]["collector"] = True
+            st.rerun()
+
+    @st.dialog("Executor", width="large")
+    def _dlg_executor():
+        st.markdown(
+            """
+**Executor Layer Characteristics**
+- Applies configuration changes and commands to network devices.
+- Supports multiple execution methods (CLI, NETCONF, RESTCONF, gNMI).
+- Handles connection management, error detection, and change verification.
+            """
+        )
+        st.info("Full form available in the Executor expander below.")
+        if st.button("Submit Executor", type="primary", use_container_width=True):
+            st.session_state["_demo_completed"]["executor"] = True
+            st.rerun()
+
+    _DIALOGS = {
+        "presentation": _dlg_presentation,
+        "observability": _dlg_observability,
+        "orchestration": _dlg_orchestration,
+        "intent": _dlg_intent,
+        "collector": _dlg_collector,
+        "executor": _dlg_executor,
+    }
+
+    @st.fragment
+    def _puzzle_fragment():
+        """Runs as an independent fragment — reruns here don't re-execute the full page."""
+        # Merge: piece is complete if EITHER the demo dialog was submitted
+        # OR the real expander section has meaningful data
+        _real_state = get_completion_state()
+        _merged_state = {
+            k: st.session_state["_demo_completed"].get(k, False) or _real_state.get(k, False)
+            for k in PUZZLE_SECTIONS
+        }
+
+        # Render clickable puzzle
+        render_puzzle_progress(_merged_state, clickable=True)
+
+        # Section buttons (alternative to clicking puzzle pieces)
+        st.markdown("#### Click a puzzle piece or button to fill out its form:")
+        _btn_row1 = st.columns(3)
+        for i, key in enumerate(["presentation", "observability", "orchestration"]):
+            with _btn_row1[i]:
+                _done = _merged_state[key]
+                _icon = "✅" if _done else "\U0001f9e9"
+                if st.button(
+                    f"{_icon} {PUZZLE_SECTIONS[key]['label']}",
+                    key=f"open_{key}",
+                    use_container_width=True,
+                ):
+                    _DIALOGS[key]()
+
+        _btn_row2 = st.columns(3)
+        for i, key in enumerate(["intent", "collector", "executor"]):
+            with _btn_row2[i]:
+                _done = _merged_state[key]
+                _icon = "✅" if _done else "\U0001f9e9"
+                if st.button(
+                    f"{_icon} {PUZZLE_SECTIONS[key]['label']}",
+                    key=f"open_{key}",
+                    use_container_width=True,
+                ):
+                    _DIALOGS[key]()
+
+        # Reset puzzle (demo tracking only — does not clear expander data)
+        if st.button("\U0001f504 Reset Puzzle", use_container_width=True):
+            st.session_state["_demo_completed"] = {key: False for key in PUZZLE_SECTIONS}
+            st.rerun()
+
+    _puzzle_fragment()
+
+    st.divider()
 
     # -------- Inputs --------
 
