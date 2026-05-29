@@ -1644,14 +1644,47 @@ def solution_wizard_main():
         st.markdown(
             """
 **Orchestration Layer Characteristics**
-- Coordinates and sequences automation tasks across the framework.
-- Manages workflow logic, error handling, and rollback procedures.
-- Connects intent to execution through collector and executor components.
+- Coordinates processes across framework components to create end-to-end workflows.
+- Event-driven execution (sync, async, scheduled) with safe rollback/compensation on errors.
+- Dry-run previews before execution, scheduling (one-time or recurring).
+- Logging, tracing, and audit visibility; optional event correlation and inference.
             """
         )
-        st.info("Full form available in the Orchestration expander below.")
+
+        st.subheader("Will the solution utilize orchestration?")
+        _ORCH_SENTINEL = "— Select one —"
+        _do_orch_options = [
+            _ORCH_SENTINEL,
+            "No",
+            "Yes – internal via custom scripts and logic",
+            "Yes – provide details",
+        ]
+        _do_cur = st.session_state.get("orch_choice", _ORCH_SENTINEL)
+        _do_idx = _do_orch_options.index(_do_cur) if _do_cur in _do_orch_options else 0
+        _do_orch_choice = st.radio(
+            "Select an option",
+            _do_orch_options,
+            key="dlg_orch_choice",
+            index=_do_idx,
+            horizontal=False,
+        )
+
+        _do_orch_details = ""
+        if _do_orch_choice == "Yes – provide details":
+            _do_orch_details = st.text_area(
+                "Describe the orchestration approach",
+                key="dlg_orch_details_text",
+                value=st.session_state.get("orch_details_text", ""),
+                placeholder="e.g., Use a workflow engine to trigger validations, approvals, execution, and post-checks; event-driven via webhooks; nightly reconciliations; rollback on failure; full traceability.",
+            )
+
+        # --- Submit ---
+        st.divider()
         if st.button("Submit Orchestration", type="primary", use_container_width=True):
-            st.session_state["_demo_completed"]["orchestration"] = True
+            ss = st.session_state
+            ss["orch_choice"] = ss.get("dlg_orch_choice", _ORCH_SENTINEL)
+            ss["orch_details_text"] = ss.get("dlg_orch_details_text", "")
+            ss["_demo_completed"]["orchestration"] = True
             st.rerun()
 
     @st.dialog("Intent", width="large")
