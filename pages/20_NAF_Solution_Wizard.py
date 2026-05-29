@@ -1896,14 +1896,43 @@ def solution_wizard_main():
         st.markdown(
             """
 **Executor Layer Characteristics**
-- Applies configuration changes and commands to network devices.
-- Supports multiple execution methods (CLI, NETCONF, RESTCONF, gNMI).
-- Handles connection management, error detection, and change verification.
+- Executes the actual changes to the network.
+- MUST be capable of interacting with any supported network write interfaces (SSH/CLI, NETCONF, gNMI/gNOI, REST APIs).
+- SHOULD support operations that alter network state, from deploying full/partial configs to device actions (reboots, upgrades).
+- SHOULD provide a dry-run capability and support transactional execution.
+- MAY support both imperative and declarative approaches, and operations SHOULD be idempotent.
             """
         )
-        st.info("Full form available in the Executor expander below.")
+
+        st.subheader("How will your solution execute change?")
+        _de_cols = st.columns(2)
+        _de_opts = [
+            "Automating CLI interaction with Python automation frameworks (Netmiko, Napalm, Nornir, PyATS)",
+            "Using Open Source Software (Ansible, Terraform, etc.)",
+            "Using Custom Python scripts",
+            "Using Network Vendor Product (Cisco DNA Center, Arista CVP)",
+            "Using a Commercial/Enterprise Product",
+        ]
+        for i, opt in enumerate(_de_opts):
+            with _de_cols[i % 2]:
+                st.checkbox(opt, key=f"dlg_exec_{i}",
+                            value=st.session_state.get(f"exec_{i}", False))
+        with _de_cols[0]:
+            _de_cust_en = st.checkbox("Custom (describe in detail)", key="dlg_exec_custom_enable",
+                                      value=st.session_state.get("exec_custom_enable", False))
+            if _de_cust_en:
+                st.text_area("Custom execution approach", key="dlg_exec_custom_text",
+                             value=st.session_state.get("exec_custom_text", ""))
+
+        # --- Submit ---
+        st.divider()
         if st.button("Submit Executor", type="primary", use_container_width=True):
-            st.session_state["_demo_completed"]["executor"] = True
+            ss = st.session_state
+            for i in range(len(_de_opts)):
+                ss[f"exec_{i}"] = ss.get(f"dlg_exec_{i}", False)
+            ss["exec_custom_enable"] = ss.get("dlg_exec_custom_enable", False)
+            ss["exec_custom_text"] = ss.get("dlg_exec_custom_text", "")
+            ss["_demo_completed"]["executor"] = True
             st.rerun()
 
     _DIALOGS = {
