@@ -1,7 +1,7 @@
 #!/usr/bin/python3 -tt
 from __future__ import annotations
 
-# Project: naf_naf_solution_wizard
+# Project: naf_framework_solution_wizard
 # Filename: 90_Terms_and_Definitions.py
 # claudiadeluna
 # PyCharm

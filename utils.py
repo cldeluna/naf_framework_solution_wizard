@@ -1,5 +1,5 @@
 #!/usr/bin/python3 -tt
-# Project: naf_naf_solution_wizard
+# Project: naf_framework_solution_wizard
 # Filename: utils.py
 # claudiadeluna
 # PyCharm

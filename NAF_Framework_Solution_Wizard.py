@@ -1,6 +1,6 @@
 #!/usr/bin/python3 -tt
-# Project: naf_naf_solution_wizard
-# Filename: naf_naf_solution_wizard.py
+# Project: naf_framework_solution_wizard
+# Filename: naf_framework_solution_wizard.py
 # claudiadeluna
 # PyCharm
 
@@ -22,7 +22,7 @@ def main() -> None:
     """
 
     st.set_page_config(
-        page_title="NAF NAF Wizard App",
+        page_title="NAF Framework Solution Wizard",
         page_icon="images/naf_favicon-96x96.png",
         layout="wide",
     )
@@ -30,11 +30,11 @@ def main() -> None:
     # Shared sidebar branding
     utils.render_global_sidebar()
 
-    st.title("Network Automation Forum (NAF) Network Automation Framework (NAF) Solution Wizard")
+    st.title("Network Automation Forum (NAF) Framework Solution Wizard")
     st.markdown(
         """
         This application helps you apply the Network Automation Forum's
-        **Network Automation Framework (NAF)** to your automation projects.
+        **Network Automation Framework** to your automation projects.
         
         Use the **Solution Wizard** to describe how you plan on designing your automation solution:
         """

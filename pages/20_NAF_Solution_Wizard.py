@@ -1,6 +1,6 @@
 #!/usr/bin/python3 -tt
-# Project: naf_naf_solution_wizard
-# Filename: naf_naf_solution_wizard.py
+# Project: naf_framework_solution_wizard
+# Filename: naf_framework_solution_wizard.py
 # claudiadeluna
 # PyCharm
 
