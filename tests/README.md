@@ -2,6 +2,23 @@
 
 This directory contains a comprehensive test framework for the NAF Solution Wizard, including data generation, API testing, upload validation, and complete end-to-end testing capabilities.
 
+## How to run all tests
+
+From the repository root:
+```bash
+uv run naf-test
+```
+
+For a faster development pass:
+```bash
+uv run naf-test --quick
+```
+
+Run raw pytest directly:
+```bash
+uv run pytest tests/ -v
+```
+
 ## 📋 Table of Contents
 
 - [Quick Start](#quick-start)

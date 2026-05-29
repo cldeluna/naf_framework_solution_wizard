@@ -420,15 +420,21 @@ wheels = [
 ]
 
 [[package]]
-name = "naf-naf-solution-wizard"
+name = "naf-framework-solution-wizard"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "kaleido" },
     { name = "pandas" },
     { name = "plotly" },
     { name = "pyyaml" },
     { name = "streamlit" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pytest" },
+    { name = "pytest-timeout" },
 ]
 
 [package.metadata]
@@ -438,6 +444,12 @@ requires-dist = [
     { name = "plotly", specifier = ">=6.5.0" },
     { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "streamlit", specifier = ">=1.57.0" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pytest" },
+    { name = "pytest-timeout" },
 ]
 
 [[package]]

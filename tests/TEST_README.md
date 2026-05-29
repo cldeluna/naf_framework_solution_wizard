@@ -2,6 +2,23 @@
 
 This document describes the test structure and test files for the NAF Solution Wizard application.
 
+## How to run all tests
+
+From the repo root:
+```bash
+uv run naf-test
+```
+
+Faster development run:
+```bash
+uv run naf-test --quick
+```
+
+Run raw pytest directly:
+```bash
+uv run pytest tests/ -v
+```
+
 ## Test Directory Structure
 
 ```
@@ -52,6 +69,7 @@ The `tests/` directory contains pytest-based tests that:
 **Key files in `tests/` relevant to recent work:**
 - `conftest.py` - pytest configuration and shared fixtures
 - `test_wizard_utils.py` - Tests for wizard-specific utility functions (fixed import from wizard_utils → utils)
+- `test_puzzle_progress.py` - NEW: Tests for puzzle progress completion and section state logic
 - `test_wizard_data_complete.py` - NEW: Tests for complete wizard payload functionality
 - All test files moved from repository root to `tests/` directory for better organization
 
@@ -195,7 +213,20 @@ The above code will create the `exports` directory if it doesn't exist.
 **Dependencies:**
 - `wizard_data.py` - Tests all helper functions and complete payload building
 
-#### 9. `test_lorem.py` (MOVED to archive)
+#### 9. `test_puzzle_progress.py` (NEW)
+**Purpose:** Tests the puzzle progress component and section completion rules.
+
+**Key Tests:**
+- `test_puzzle_sections_has_all_six()` - Verifies the puzzle contains all six expected pieces
+- `test_puzzle_sections_grid_layout()` - Confirms puzzle pieces are arranged in a 2x3 grid
+- `test_check_section_completion_*()` - Verifies each section completes only when the expected session state keys are set
+- `test_unknown_section_returns_false()` - Ensures invalid section keys are treated as incomplete
+- `test_get_completion_state_*()` - Verifies aggregated completion state across all puzzle sections
+
+**Dependencies:**
+- `puzzle_progress.py` - The puzzle progress logic implementation
+
+#### 10. `test_lorem.py` (MOVED to archive)
 **Purpose:** Lorem ipsum text generation test.
 **Status:** Moved to `tests/archive/` due to import issues
 

@@ -1,5 +1,5 @@
 [project]
-name = "naf-naf-solution-wizard"
+name = "naf-framework-solution-wizard"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -11,6 +11,21 @@ dependencies = [
     "pyyaml>=6.0.3",
     "streamlit>=1.57.0",
 ]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+naf-test = "cli:run_naf_test"
+naf-test-quick = "cli:run_naf_test_quick"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 norecursedirs = ["tests/archive", ".*", "build", "dist", "CVS", "_darcs", "{arch}", "*.egg"]
+
+[tool.uv]
+package = true
+
+[dependency-groups]
+dev = ["pytest", "pytest-timeout"]
