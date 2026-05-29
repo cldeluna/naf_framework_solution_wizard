@@ -46,6 +46,10 @@ htmlcov/
 .swo
 *~
 
+images/*
+NOTICE
+
+
 run_all_tests.py
 test_lorem.py
 tests/__init__.py
