@@ -1,0 +1,37 @@
+{
+  "Technical Stakeholders": [
+    "Individual Network Engineer",
+    "Network Engineering team",
+    "Network Operations (NOC) team",
+    "Security engineering / operations",
+    "SRE / Platform engineering",
+    "Application / Dev teams (software engineering)",
+    "None"
+  ],
+  "User and Customer Stakeholders": [
+    "Internal users (ITSM / Service Desk)",
+    "Internal users (application / dev teams consuming automation)",
+    "External customers / tenants (if applicable)",
+    "None"
+  ],
+  "Governance and Risk Stakeholders": [
+    "Compliance / risk officer",
+    "Security officer / CISO staff",
+    "Enterprise risk management team",
+    "None"
+  ],
+  "Business and Leadership Stakeholders": [
+    "Executive sponsor (CIO / CTO / VP of IT)",
+    "Business owner / product owner",
+    "Project manager / program manager",
+    "Finance / procurement",
+    "Compliance / security / risk officer",
+    "None"
+  ],
+  "External/Vendor/Partner Stakeholders": [
+    "Technology vendors (network, automation platform, cloud)",
+    "Implementation / consulting partners",
+    "Regulatory bodies / auditors",
+    "None"
+  ]
+}

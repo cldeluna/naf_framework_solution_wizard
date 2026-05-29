@@ -11,7 +11,6 @@ Usage:
 """
 
 import streamlit as st
-import streamlit.components.v1 as components
 
 # Section definitions with colors matching the NAF framework legend
 PUZZLE_SECTIONS = {
@@ -362,7 +361,7 @@ def render_puzzle_progress(
     </script>
     """
 
-    components.html(html, height=height, scrolling=False)
+    st.iframe(html, height=height)
 
 
 def check_section_completion(section_key: str) -> bool:
