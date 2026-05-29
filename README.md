@@ -1,0 +1,126 @@
+<p align="center">
+  <img src="images/naf_icon.png" alt="NAF" width="80" style="vertical-align:middle;margin-right:12px;" />
+  <img src="images/logo_transp.jpg" alt="NAFNAF" width="80" style="vertical-align:middle;margin-right:12px;" />
+</p>
+
+# NAF Solution Wizard
+
+An interactive Streamlit app to help you describe in a systematic way a proposed network automation solution using the NAF Network Automation Framework. 
+
+It guides you through:
+- **Automation Use Cases** — Define one or more use cases with problem statements, expected outcomes, categories, triggers, and more
+- **Standard solution blocks** for a network automation solution:
+  - Presentation
+  - Intent
+  - Observability
+  - Orchestration
+  - Collector
+  - Executor
+- **External system Dependencies**, **Staffing**, and a planning **Timeline**
+
+With this input, the App will generate a consolidated report and a bundled ZIP containing:
+
+1. Markdown report (naf_report_*.md) generated from your inputs
+2. JSON export (naf_report_*.json) of the input data
+3. Optional Gantt.png (if Plotly+kaleido is available)
+
+## Preview the Solution Wizard on Streamlit App 
+
+Quickly try the Streamlit hosted app [here](https://naf-naf-wizard.streamlit.app/) to see if it is worth installing!
+
+<a href="https://naf-naf-wizard.streamlit.app/"><img src="https://streamlit.io/images/brand/streamlit-mark-color.svg" alt="Open in Streamlit" width="80" /></a>
+
+---
+## Features
+
+- Guided expanders with sensible defaults; suppresses placeholder text in highlights
+- Live “Detailed solution description” preview (markdown) of the export
+- Single ZIP download including JSON + MD (+ PNG when available)
+- Import back a previous `naf_report_*.json` (Merge/Overwrite)
+
+## Requirements
+
+- Python 3.9+
+- Streamlit, Plotly, Jinja2
+- Optional: `kaleido` for static PNG Gantt export
+
+## Installation
+
+### Using uv (recommended)
+
+1. Install uv if needed:
+   - macOS/Linux: `curl -LsSf https://astral.sh/uv/install.sh | sh`
+2. From the project folder:
+   - Create/resolve env and install: `uv sync`
+   - Run the app: `uv run streamlit run NAF_NAF_Solution_Wizard.py`
+
+### Using pip
+
+1. Create and activate a virtual environment:
+   - `python -m venv .venv`
+   - macOS/Linux: `source .venv/bin/activate`
+   - Windows: `.venv\Scripts\activate`
+2. Install dependencies:
+   - `pip install -U streamlit jinja2 plotly pandas kaleido`
+3. Run the app:
+   - `streamlit run NAF_NAF_Solution_Wizard.py`
+
+## How to use the Wizard
+
+1. Open the app (see commands above).
+2. In the left sidebar, use “Load Saved Solution Wizard (JSON)” to reset or import a previous `naf_report_*.json`.
+3. Work through the expanders:
+   - Presentation: target users, interaction patterns, tools, and auth
+   - Intent: what will be developed and what you already have
+   - Observability: health signals, go/no‑go logic, tools
+   - Orchestration: choose “No” or describe your orchestration approach
+   - Collector: methods, auth, normalization, scale, collection tools
+   - Executor: change/intent execution methods
+   - Dependencies: systems/interfaces required
+   - Staffing, Timeline, & Milestones: dates and staffing plan; Gantt will be generated
+4. The main page shows Solution Highlights and a collapsible "Detailed solution description" preview.
+5. When any meaningful input is present, the sidebar shows “Save Solution Artifacts” to download a ZIP with:
+   - `naf_report_*.json` (includes `naf_report_md` at the top level)
+   - `naf_report_*.md` (rendered report)
+   - `Gantt.png` if Plotly+kaleido can render PNGs
+6. To re‑load, use the upload control and ensure the file name matches `naf_report_*.json`.
+
+## Wizard Blocks (Expanders)
+
+- Load Saved Solution Wizard (JSON)
+- My Role
+- Automation Project Title & Description
+- Guiding Questions by Framework Component
+- Presentation
+- Intent
+- Observability
+- Orchestration
+- Collector
+- Executor
+- Dependencies & External Interfaces
+- Staffing, Timeline, & Milestones
+- Detailed solution description (Markdown supported)
+
+## Notes & Tips
+
+- If Gantt.png is missing, install `kaleido` and retry.
+
+## JSON Schema
+
+The wizard generates JSON payloads that conform to a defined schema:
+- **Schema location**: `schemas/wizard_payload.schema.json`
+- **Documentation**: See `docs/schema.md` for detailed field descriptions
+- **Validation**: The schema includes validation rules for all fields
+- **IDE Support**: Use the schema for autocomplete and validation in modern IDEs
+
+The schema defines the structure for all 11 sections of the wizard payload, including initiative details, stakeholder information, NAF components, dependencies, and timeline data.
+
+## License
+
+Apache License
+Version 2.0
+
+
+<p align="center">
+  <img src="images/EIA_Favicon.png" alt="EIA" width="80" style="vertical-align:middle;" />
+</p>

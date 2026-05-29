@@ -1,0 +1,15 @@
+[project]
+name = "naf-naf-solution-wizard"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "kaleido>=1.2.0",
+    "plotly>=6.5.0",
+    "pyyaml>=6.0.3",
+    "streamlit>=1.51.0",
+]
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = ["tests/archive", ".*", "build", "dist", "CVS", "_darcs", "{arch}", "*.egg"]
