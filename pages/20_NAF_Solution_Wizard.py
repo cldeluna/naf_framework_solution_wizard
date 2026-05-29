@@ -1758,14 +1758,137 @@ def solution_wizard_main():
         st.markdown(
             """
 **Collector Layer Characteristics**
-- Gathers data from network devices and external sources.
-- Supports multiple collection methods (SNMP, CLI, API, streaming telemetry).
-- Normalizes and structures collected data for use by other components.
+- Retrieves the actual state of the network over time, ideally in a normalized format.
+- Can be thought of as a "read only" version of the executor.
+- Retrieved data should be normalized across vendors and collection methods in a time series format.
             """
         )
-        st.info("Full form available in the Collector expander below.")
+
+        # --- Collection methods ---
+        st.subheader("Collection methods (protocols/APIs)")
+        st.caption("Build your own approaches (protocols, handling, normalization)")
+        _dc_cols = st.columns(3)
+        _dc_method_opts = [
+            "SNMP", "CLI/SSH", "NETCONF", "gNMI",
+            "REST API", "Webhooks", "Syslog", "Streaming Telemetry",
+        ]
+        for i, opt in enumerate(_dc_method_opts):
+            with _dc_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_collector_method_{opt}",
+                            value=st.session_state.get(f"collector_method_{opt}", False))
+        _dc_m_oth_en = st.checkbox("Other (fill in)", key="dlg_collector_methods_other_enable",
+                                   value=st.session_state.get("collector_methods_other_enable", False))
+        if _dc_m_oth_en:
+            st.text_input("Other protocol/API", key="dlg_collector_methods_other",
+                          value=st.session_state.get("collector_methods_other", ""))
+
+        # --- Authentication ---
+        st.subheader("Authentication")
+        _dc_a_cols = st.columns(3)
+        _dc_auth_opts = ["Username/Password", "SSH Keys", "OAuth2", "API Token", "mTLS"]
+        for i, opt in enumerate(_dc_auth_opts):
+            with _dc_a_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_collector_auth_{opt}",
+                            value=st.session_state.get(f"collector_auth_{opt}", False))
+        _dc_a_oth_en = st.checkbox("Other (fill in)", key="dlg_collector_auth_other_enable",
+                                   value=st.session_state.get("collector_auth_other_enable", False))
+        if _dc_a_oth_en:
+            st.text_input("Other authentication method(s)", key="dlg_collector_auth_other",
+                          value=st.session_state.get("collector_auth_other", ""))
+
+        # --- Traffic handling ---
+        st.subheader("Traffic handling")
+        _dc_h_cols = st.columns(3)
+        _dc_handle_opts = ["None", "Rate limiting", "Retries", "Exponential backoff", "Buffering/Queue"]
+        for i, opt in enumerate(_dc_handle_opts):
+            with _dc_h_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_collector_handle_{opt}",
+                            value=st.session_state.get(f"collector_handle_{opt}", False))
+        _dc_h_oth_en = st.checkbox("Other (fill in)", key="dlg_collector_handling_other_enable",
+                                   value=st.session_state.get("collector_handling_other_enable", False))
+        if _dc_h_oth_en:
+            st.text_input("Other traffic handling approach(es)", key="dlg_collector_handling_other",
+                          value=st.session_state.get("collector_handling_other", ""))
+
+        # --- Normalization and schemas ---
+        st.subheader("Normalization and schemas")
+        _dc_n_cols = st.columns(3)
+        _dc_norm_opts = ["None", "Timestamping", "Tagging/labels", "Topology enrichment", "Schema mapping"]
+        for i, opt in enumerate(_dc_norm_opts):
+            with _dc_n_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_collector_norm_{opt}",
+                            value=st.session_state.get(f"collector_norm_{opt}", False))
+        _dc_n_oth_en = st.checkbox("Other (fill in)", key="dlg_collector_norm_other_enable",
+                                   value=st.session_state.get("collector_norm_other_enable", False))
+        if _dc_n_oth_en:
+            st.text_input("Other normalization/schema approach(es)", key="dlg_collector_norm_other",
+                          value=st.session_state.get("collector_norm_other", ""))
+
+        # --- OR divider ---
+        st.divider()
+        _or_c1, _or_c2, _or_c3 = st.columns([1, 1, 1])
+        with _or_c2:
+            st.markdown("**OR**")
+
+        # --- Collection tools ---
+        st.subheader("Collection tools")
+        st.caption("Buy/use existing platforms (collection tools)")
+        _dc_t_cols = st.columns(3)
+        _dc_tool_opts = ["None", "Open Source Software", "Commercial/Enterprise Product", "In-house Software"]
+        for i, opt in enumerate(_dc_tool_opts):
+            with _dc_t_cols[i % 3]:
+                st.checkbox(opt, key=f"dlg_collection_tool_{opt}",
+                            value=st.session_state.get(f"collection_tool_{opt}", False))
+        _dc_t_oth_en = st.checkbox("Other (fill in)", key="dlg_collection_tools_other_enable",
+                                   value=st.session_state.get("collection_tools_other_enable", False))
+        if _dc_t_oth_en:
+            st.text_input("Other collection tool(s)", key="dlg_collection_tools_other",
+                          value=st.session_state.get("collection_tools_other", ""))
+
+        # --- Expected scale ---
+        st.subheader("Expected scale")
+        _dc_s1, _dc_s2, _dc_s3 = st.columns(3)
+        with _dc_s1:
+            st.text_input("Devices (approx)", key="dlg_collector_devices",
+                          value=st.session_state.get("collector_devices", ""),
+                          placeholder="e.g., 500")
+        with _dc_s2:
+            st.text_input("Metrics/sec (approx)", key="dlg_collector_metrics",
+                          value=st.session_state.get("collector_metrics", ""),
+                          placeholder="e.g., 50k")
+        with _dc_s3:
+            st.text_input("Polling/stream cadence", key="dlg_collector_cadence",
+                          value=st.session_state.get("collector_cadence", ""),
+                          placeholder="e.g., 30s polling; streaming realtime")
+
+        # --- Submit ---
+        st.divider()
         if st.button("Submit Collector", type="primary", use_container_width=True):
-            st.session_state["_demo_completed"]["collector"] = True
+            ss = st.session_state
+            for opt in _dc_method_opts:
+                ss[f"collector_method_{opt}"] = ss.get(f"dlg_collector_method_{opt}", False)
+            ss["collector_methods_other_enable"] = ss.get("dlg_collector_methods_other_enable", False)
+            ss["collector_methods_other"] = ss.get("dlg_collector_methods_other", "")
+            for opt in _dc_auth_opts:
+                ss[f"collector_auth_{opt}"] = ss.get(f"dlg_collector_auth_{opt}", False)
+            ss["collector_auth_other_enable"] = ss.get("dlg_collector_auth_other_enable", False)
+            ss["collector_auth_other"] = ss.get("dlg_collector_auth_other", "")
+            for opt in _dc_handle_opts:
+                ss[f"collector_handle_{opt}"] = ss.get(f"dlg_collector_handle_{opt}", False)
+            ss["collector_handling_other_enable"] = ss.get("dlg_collector_handling_other_enable", False)
+            ss["collector_handling_other"] = ss.get("dlg_collector_handling_other", "")
+            for opt in _dc_norm_opts:
+                ss[f"collector_norm_{opt}"] = ss.get(f"dlg_collector_norm_{opt}", False)
+            ss["collector_norm_other_enable"] = ss.get("dlg_collector_norm_other_enable", False)
+            ss["collector_norm_other"] = ss.get("dlg_collector_norm_other", "")
+            for opt in _dc_tool_opts:
+                ss[f"collection_tool_{opt}"] = ss.get(f"dlg_collection_tool_{opt}", False)
+            ss["collection_tools_other_enable"] = ss.get("dlg_collection_tools_other_enable", False)
+            ss["collection_tools_other"] = ss.get("dlg_collection_tools_other", "")
+            ss["collector_devices"] = ss.get("dlg_collector_devices", "")
+            ss["collector_metrics"] = ss.get("dlg_collector_metrics", "")
+            ss["collector_cadence"] = ss.get("dlg_collector_cadence", "")
+            ss["_demo_completed"]["collector"] = True
             st.rerun()
 
     @st.dialog("Executor", width="large")
