@@ -1,0 +1,174 @@
+
+![NAF Icon](images/naf_icon.png)
+
+***NAF Network Automation Framework Solution Design Document***
+
+Generated: 2025-12-24 12:12:08
+
+## Overview of Automation Initiative
+# LOREM TEST - UPDATED
+---
+
+## Scope
+Dignissimos iste sint repellat cupiditate, ipsum voluptas repellendus doloremque at ipsam, doloremque quis aspernatur quibusdam est voluptatem facere reiciendis sapiente adipisci, ut laboriosam porro quaerat ducimus recusandae, quidem aut id architecto voluptatibus totam tempore asperiores atque expedita consequatur? Cum voluptatum eveniet harum exercitationem autem nulla nam tempora repellendus consequuntur amet, minus aspernatur doloremque quaerat voluptatibus ad odio deserunt voluptate, eaque perspiciatis repellendus suscipit sed aut nesciunt praesentium ea, molestiae fugit neque odit, mollitia cumque aut? Saepe magnam corrupti consequatur necessitatibus porro ad asperiores cupiditate eius voluptatem minus, amet nobis doloribus consequatur optio eius aspernatur eveniet odio, voluptatem velit corrupti iusto. Eaque tempore accusantium voluptas, amet sequi obcaecati voluptatem corporis laboriosam voluptatibus nam incidunt, soluta dignissimos autem laudantium sequi hic tempore iusto temporibus dolorem quo libero, accusantium nesciunt distinctio consequuntur non laboriosam cupiditate animi, sint veniam similique ad nulla ducimus cupiditate fugit id nihil omnis. Harum ipsum vitae repudiandae ad repellat magni rerum qui facilis eaque, assumenda earum quidem quas, inventore officia facere impedit nulla possimus est sunt suscipit dolore illo.
+## Category
+Network Automation
+## Problem Statement
+Officiis inventore obcaecati exercitationem est expedita id beatae, sapiente velit consequatur, architecto harum exercitationem quo, cum iure soluta impedit harum saepe corrupti excepturi error? Voluptatem sunt ipsa explicabo impedit quidem ipsam quasi natus inventore eum, libero consequuntur vitae iusto eveniet eius nisi tenetur, ipsa eum neque sapiente ipsam in consequuntur inventore molestiae ab, praesentium sit accusantium odit numquam officia eveniet molestiae pariatur corporis voluptatum saepe. Error voluptas non, cum maxime iure sit tempore?
+## Out of scope
+Soluta quia eaque ducimus hic laudantium minima sed excepturi deleniti quae eos, beatae dignissimos deleniti molestiae dicta voluptatem voluptates enim tempore iusto eligendi aut, veniam saepe nisi. Odio minima repudiandae doloribus laboriosam asperiores natus expedita molestias, ab hic quas ducimus in placeat optio nostrum ea minus, praesentium fugit doloribus accusantium dolorem facilis repellendus assumenda quidem officiis repellat modi, placeat excepturi facilis dolorem aperiam?
+## Expected use
+Magnam maiores ipsum nisi natus libero quos minus eos qui, repellendus nemo beatae officiis possimus ratione, architecto neque ex esse perferendis, eius id at dolore suscipit, officia ratione similique facere? Velit dolorem voluptas nisi blanditiis error assumenda fugit sed, sapiente eos aliquam quisquam? Sint neque voluptates odio accusamus, explicabo alias consequatur quibusdam quisquam asperiores ad, vero optio quis laborum deserunt enim quaerat expedita?
+## Error Conditions
+Exercitationem aut ad minima ex nam iste quaerat amet ab, illum consequatur veritatis doloremque architecto aliquam dolore, sequi soluta assumenda quam, laboriosam dicta enim dolorum deserunt sint error ducimus soluta? Numquam alias porro minus in necessitatibus cupiditate dicta eveniet ab reiciendis, adipisci ea reiciendis ratione minima?
+## Assumptions
+Libero suscipit porro at culpa quod quae ipsam amet temporibus natus, at hic eveniet officiis totam? Quod cupiditate odit expedita voluptate debitis aspernatur reprehenderit unde, assumenda voluptas cumque minus provident non explicabo aut labore nulla, et neque optio ipsam consequuntur illo explicabo cumque ducimus necessitatibus error qui, perferendis fugit quaerat animi libero possimus harum eius ipsam aliquid, animi rem molestias voluptatum minus eos molestiae ad nobis deserunt.
+## Deployment Strategy
+Other
+## Deployment Strategy Description
+Commodi aliquam eius, odit eos necessitatibus eaque nam quae consequatur, quisquam tempore nobis totam asperiores sed vero amet, cum corporis fuga est debitis delectus, fuga ducimus veniam eos at impedit hic sapiente vero quisquam accusantium. Perferendis ipsum sequi sapiente, corrupti eaque maiores obcaecati ex impedit in, tempora eos hic corrupti dolorem. Commodi vero deserunt quidem doloribus a tempore rerum quo, exercitationem consectetur et ea sapiente odit cupiditate nesciunt in error aperiam ad.
+
+
+## My Role
+- Who: Lorem aliquam provident Engineer
+- Skills: Nam mollitia quis perferendis, ut distinctio pariatur odio quisquam facere et fugiat alias officiis dolores natus, voluptates voluptatem magni autem ipsam iste similique ullam minima dolores sed vel, provident deleniti voluptatem minus dolorem harum recusandae earum asperiores consequatur sapiente, nihil quam ipsam aliquam? Ullam rem quam unde adipisci ipsum, saepe nulla cum dolores repudiandae odit sequi temporibus rerum magnam error?
+- Developer: In-house team
+
+## Stakeholders
+
+
+- **Technical Stakeholders**: Network Engineering Team
+
+- **Business Stakeholders**: IT Director
+
+- **User Stakeholders**: End Users
+
+
+- **Other**: Lorem at aliquid iusto stakeholders
+
+
+
+## Automation Use Cases Summary
+_This solution design focuses on the initiative scope rather than specific use cases._
+
+
+---
+# Framework Elements
+
+## Presentation
+
+
+
+
+- Selected user types: Network Engineers, Developers, System Administrators
+- Interaction modes: Web Dashboard, API Access
+- Presentation tools: Vue.js, Streamlit
+- Authentication mechanisms: OAuth2, API Keys
+
+
+
+## Intent
+
+
+- Intent development format(s): YAML, JSON
+- Intent delivery format(s): GraphQL, gRPC
+
+
+
+## Observability
+
+
+
+
+
+- Observability method(s): File Monitoring, SNMP Traps, Syslog
+
+- Go/No-Go text: Nemo tempora corporis id pariatur, ipsam enim harum, iusto sed incidunt eum sint nam minus hic culpa, repudiandae excepturi placeat autem, eligendi facere provident odit totam cum aspernatur?
+
+- Additional logic details: Obcaecati repudiandae maiores blanditiis saepe aliquam itaque at eaque natus delectus, quas nihil sint accusamus odio nesciunt sunt id mollitia rem quidem, obcaecati deserunt voluptate commodi quod nesciunt, mollitia maxime tempore doloribus autem facere modi cum placeat?
+
+- Observability tool(s): ELK Stack, Prometheus
+
+
+
+
+## Orchestration
+
+
+
+
+Expedita voluptates ex a fugiat unde, sunt quisquam ipsam ullam, cum quisquam tempore voluptatum mollitia at voluptate ea, quam rem maiores pariatur quis obcaecati dolorum? Magnam fugiat vero dignissimos impedit sed totam voluptatum animi veniam consectetur, autem odit voluptatem atque corporis culpa, reiciendis aperiam ipsum expedita aliquid iusto, laboriosam delectus hic consectetur beatae reiciendis nesciunt quis ipsum earum minus. Odio sed possimus praesentium explicabo, ratione nesciunt tempore ipsam cupiditate, debitis sapiente labore laborum cumque aperiam voluptatem eum, ut expedita ullam voluptate mollitia neque hic aliquid saepe sed ipsa, quod et consectetur?
+
+- Orchestration used: — Select one —
+
+
+
+## Collector
+
+
+
+
+
+
+
+
+- Collection method(s): NETCONF, SNMP, REST APIs
+
+- Authentication mechanism(s): Certificates, Username/Password
+
+- Traffic handling: Sequential Processing, Concurrent Execution
+
+- Normalization: No Normalization, XML Schema
+
+- Target devices: 346 obcaecati odio devices
+
+- Metrics per second: 1737 metrics/sec
+
+- Collection cadence: Every 6 minutes
+
+- Collection tool(s): Streamlit, React
+
+
+
+
+## Executor
+
+- Execution method(s): Custom Protocol, NETCONF
+
+
+
+# Dependencies & External Interfaces
+---
+- Lorem labore ad 1: Asperiores ab dolor delectus suscipit autem culpa ullam quisquam nesciunt ipsam, enim molestiae suscipit odit magnam magni voluptatum dolores.
+- Lorem temporibus velit 2
+- Lorem praesentium nihil 3: Incidunt reprehenderit laudantium quaerat doloribus cum non, fugit blanditiis architecto hic repellendus vitae unde, cum in temporibus?
+- Lorem placeat itaque 4: Tenetur quae corrupti perspiciatis labore doloremque dignissimos modi, ipsam unde sunt amet magnam odio labore dolores, at perferendis corrupti asperiores doloribus delectus quae?
+- Lorem deserunt exercitationem 5: Voluptate corporis voluptates saepe perspiciatis, tenetur laboriosam repellendus nostrum exercitationem accusamus voluptates molestiae aspernatur modi.
+
+
+# Staffing, Timeline, & Milestones
+---
+
+
+
+
+- Staff 2 • Start 2024-01-15 • Total 34 bd • Completion 2024-01-38
+
+- Requirements gathering: 2024-01-15 → 2024-01-20 (5 bd) — Lorem ipsum requirements
+- Design and architecture: 2024-01-15 → 2024-01-27 (7 bd) — Lorem ipsum design
+- Development phase: 2024-01-15 → 2024-01-39 (14 bd) — Lorem ipsum development
+- Testing and validation: 2024-01-15 → 2024-01-35 (5 bd) — Lorem ipsum testing
+- Deployment and rollout: 2024-01-15 → 2024-01-38 (3 bd) — Lorem ipsum deployment
+
+
+### Gantt Chart
+Gantt chart image not available
+
+
+## Staffing Plan
+Consectetur saepe laboriosam distinctio nisi facilis impedit quia placeat, facere cupiditate dolore quo nostrum voluptatum dicta cum eligendi aliquid, accusamus maxime fuga vel rerum placeat delectus accusantium libero blanditiis tempore dicta, esse saepe aliquam odit consequuntur nemo incidunt iusto sequi alias, odit ad rem aperiam officia? Dicta voluptates quos quod unde rerum non doloribus sunt labore, blanditiis magnam culpa fugit aut, voluptatibus molestiae adipisci asperiores eum harum obcaecati commodi fuga, maiores minus error id? Reiciendis nulla adipisci praesentium odit expedita ipsum dolore, officiis corrupti vel a cumque vitae reprehenderit tenetur facilis atque quos. Sequi et unde culpa quisquam velit tenetur quas ipsam, labore nesciunt unde, eveniet molestiae reprehenderit.
+
+
+---
+
+NAF NAF Solution Wizard provided by EIA https://eianow.com

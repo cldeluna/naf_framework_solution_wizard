@@ -1,0 +1,194 @@
+{
+  "initiative": {
+    "title": "LOREM TEST",
+    "description": "Placeat nemo officia culpa cumque maiores, error explicabo distinctio molestias voluptate excepturi similique repudiandae saepe natus sed in, dicta quo modi, nisi sunt voluptatibus ipsam optio sint nesciunt asperiores minima ullam vero tenetur? Recusandae id eos, incidunt recusandae facilis excepturi quam voluptatibus dolorum assumenda repellendus minima rerum doloremque. Quam deleniti rerum ipsa quae accusamus iusto laudantium sed, sed ab nobis, excepturi aliquam ea maxime, pariatur ipsa provident adipisci error aliquam aliquid molestias laudantium, ducimus nam nulla necessitatibus voluptates expedita quasi voluptatem officia totam. Error rem eos autem ullam cum alias eveniet beatae, laborum sit dolorem dolor blanditiis dicta impedit molestiae, quas molestias odit voluptate aspernatur delectus velit atque quaerat repellat eligendi quisquam, nihil magni ipsa ullam minima vel? Qui recusandae officiis reiciendis deleniti nemo sed, vero quas doloremque deleniti iure sint aperiam labore ipsa, itaque veniam expedita labore dicta laboriosam quibusdam, non nisi excepturi, beatae error nam debitis facilis tempore.",
+    "category": "Security Automation",
+    "problem_statement": "Nostrum laudantium error deleniti quae repellendus vel aut placeat voluptate, alias reiciendis aspernatur asperiores veritatis, qui omnis temporibus amet sit molestias eveniet dolorum, molestiae quidem magni expedita consequuntur modi, illo vero atque dolores temporibus praesentium repellat labore voluptas provident ratione recusandae. Illum perferendis cumque molestias nostrum dolor doloremque veritatis, a minus aliquam nam perferendis soluta praesentium similique. Mollitia quos illum nemo aut repudiandae numquam fuga temporibus, iste fugit ex explicabo eaque repellat.",
+    "out_of_scope": "Ad nisi aperiam fugit, maiores molestias quae velit architecto vero possimus iste asperiores? Accusamus incidunt libero quo ducimus consequatur odio debitis voluptatum at illo, placeat dolorem eos, ratione autem enim sunt facere repellat harum commodi quos eius ipsum eveniet, deleniti eos iure neque tempore voluptate laudantium.",
+    "expected_use": "Neque laboriosam sit possimus eveniet, perferendis facere natus deserunt adipisci unde autem quo iste delectus ut voluptatibus, veritatis porro aspernatur, illo a quidem unde, obcaecati natus fugiat repellendus similique quaerat. Vel non consectetur facere aut et similique, accusantium obcaecati nam modi, nulla ut unde sequi, praesentium modi officiis amet mollitia rem earum. Iusto ipsam explicabo nesciunt voluptatibus sint, consectetur cumque tempora soluta voluptate, deserunt pariatur labore repellat obcaecati eius illo quidem repellendus eligendi cumque ipsa, aliquid nemo repudiandae praesentium explicabo fugit?",
+    "error_conditions": "Fugit aperiam hic molestias similique eaque quaerat obcaecati doloremque laudantium dolore, minima quo voluptatem tenetur. Voluptas culpa praesentium est esse, explicabo saepe omnis quisquam consequatur facilis, tempora quisquam placeat a deserunt officiis magni laudantium?",
+    "assumptions": "Neque praesentium doloribus suscipit nam ullam illo iusto, ab quas aut illo, iusto exercitationem enim ea voluptates culpa nemo mollitia voluptatum, autem ea quisquam optio. Perferendis nemo sint est ab debitis culpa neque assumenda, ad similique commodi repellendus, exercitationem minus illum praesentium, corrupti tenetur repellendus nobis, minima enim tenetur ea voluptatem asperiores et.",
+    "deployment_strategy": "Blue-Green Deployment",
+    "deployment_strategy_description": "Dolores unde repellat nam, debitis consequuntur officia dicta autem itaque saepe harum rerum? Iste eaque cumque alias aperiam sed veniam voluptatibus ipsa, dolorum laborum necessitatibus quaerat voluptatem? Adipisci nesciunt non odio, cumque cum reprehenderit nemo odit corrupti, ea officiis voluptas corrupti, dolorem quisquam porro reprehenderit quaerat nostrum?",
+    "no_move_forward_reasons": [
+      "Minus voluptatibus in temporibus repellendus fugiat, inventore aliquam voluptas, omnis numquam perspiciatis deleniti explicabo voluptatum ipsam repellendus voluptatibus, repellat asperiores facere adipisci, fuga voluptas sed commodi iste cupiditate itaque optio?",
+      "Maxime non eum aut expedita maiores beatae dolore similique minima, facere molestias atque ipsam iusto ea sit, exercitationem placeat numquam laborum molestiae alias velit praesentium perspiciatis harum sint, placeat aliquid odio soluta odit vero ab accusantium ratione, dolore inventore deserunt natus voluptatem possimus dolorem."
+    ],
+    "no_move_forward": "Ratione atque doloremque harum temporibus excepturi dolores sit saepe et tempore ducimus, voluptatibus minima commodi expedita distinctio velit at reiciendis quae autem. Vitae cumque et officiis placeat consequatur praesentium beatae omnis aperiam, neque odio omnis, blanditiis reprehenderit cumque dicta ipsam illum, suscipit ullam mollitia voluptatem repellendus dolor quaerat magni."
+  },
+  "my_role": {
+    "who": "Lorem vel quaerat Engineer",
+    "skills": "Culpa totam consequuntur voluptatem voluptate reprehenderit natus ut, quibusdam nisi omnis, explicabo qui dicta cumque? Blanditiis ipsum ex neque praesentium, quia corrupti deserunt.",
+    "developer": "In-house team"
+  },
+  "stakeholders": {
+    "choices": {
+      "Technical Stakeholders": "DevOps Team",
+      "Business Stakeholders": "Product Owner",
+      "User Stakeholders": "End Users"
+    },
+    "other": "Lorem magnam quis dolor stakeholders"
+  },
+  "presentation": {
+    "users": "Aperiam tempora omnis aliquam nihil, magnam animi unde ipsam tempora hic quisquam dolores necessitatibus, consequatur neque ipsum nobis dolores officia sunt aut consectetur aliquam, praesentium dicta qui aut, dolorum soluta nihil mollitia voluptates a quo dolores id ex. Laboriosam consequuntur dolores eveniet et cupiditate, numquam sit nisi quibusdam quas soluta quam tempora amet, culpa totam vel dolorem tempore fugiat laborum ab deserunt ut, quam iste dolor rem libero incidunt id possimus dignissimos?",
+    "interaction": "Nobis autem placeat iste esse doloribus facilis voluptatibus praesentium est quis, sequi consectetur non eius amet, recusandae doloribus laudantium ad ipsam neque dolor tempora aperiam inventore, maxime quaerat hic explicabo, sit impedit numquam optio necessitatibus commodi eaque autem consectetur? Sequi quibusdam minus ea similique neque tenetur vero nihil modi earum, libero exercitationem sapiente, sapiente itaque quidem quam dolores aut voluptatum quasi quo doloremque laborum?",
+    "tools": "Aut voluptatum inventore eos accusamus maiores consequuntur, repellendus reiciendis illo laboriosam quidem quos tenetur sequi molestiae amet? Consequatur dolor sed molestiae maiores quasi fugit iste soluta iure, cum sint illo dolorem quas velit tenetur enim, quod corrupti asperiores ullam id illo voluptate nemo alias, accusamus recusandae at necessitatibus magnam natus autem consequuntur neque sunt exercitationem.",
+    "auth": "Nesciunt consectetur voluptatibus eum, beatae architecto quae, dicta vitae odit voluptate quis, sit aliquam distinctio provident non quo officia. At non earum consequatur quo saepe impedit excepturi provident officiis quia, architecto dolor saepe vero libero eius ipsum maxime labore quos excepturi aut.",
+    "selections": {
+      "users": [
+        "Developers",
+        "Security Analysts",
+        "System Administrators"
+      ],
+      "interactions": [
+        "Web Dashboard",
+        "API Access"
+      ],
+      "tools": [
+        "FastAPI",
+        "Streamlit"
+      ],
+      "auth": [
+        "SAML",
+        "API Keys"
+      ]
+    }
+  },
+  "intent": {
+    "development": "Tempore minima accusantium error earum incidunt nam deserunt architecto dignissimos commodi natus, vero eveniet molestias qui sit minus. Amet optio molestiae modi dolores maiores exercitationem libero, facere laborum aspernatur amet, repellendus quidem officiis ea nam veritatis dignissimos, eum perspiciatis ab laboriosam nisi, officia enim maxime cupiditate aliquam beatae ducimus eaque fuga numquam.",
+    "provided": "Suscipit rerum maxime praesentium perspiciatis, temporibus recusandae dignissimos aliquid natus ex? Animi placeat laudantium voluptatem saepe quia a provident facere, ratione laboriosam in vel maxime nobis voluptatibus eum illum sint.",
+    "selections": {
+      "development": [
+        "YAML",
+        "JSON"
+      ],
+      "provided": [
+        "REST API",
+        "GraphQL"
+      ]
+    }
+  },
+  "observability": {
+    "methods": "Reprehenderit minus est laboriosam numquam recusandae dolor veritatis ex, recusandae atque quia ex voluptatibus, ut ipsam beatae sunt nobis aliquam maxime expedita cum? Consequatur culpa perspiciatis dolorum mollitia odio ratione obcaecati soluta recusandae sit quaerat, nemo itaque repudiandae inventore quaerat, enim id earum unde accusamus modi, nam in unde magnam repellendus aliquam ipsum omnis ipsa debitis, ut ullam doloribus quod voluptates exercitationem minima beatae eius iure officiis?",
+    "go_no_go": "Fugiat veritatis alias possimus neque corporis provident architecto, impedit ab nam consequatur aspernatur vel, commodi itaque ad reprehenderit, tempora veniam perferendis itaque porro deleniti odit molestias dolore omnis eligendi ex? Necessitatibus laboriosam quam quo nostrum eligendi voluptas, vero quibusdam deleniti dolorum ullam nam, optio fuga quis quas animi inventore minus quisquam odit, perferendis esse ea iure, dolores perferendis id?",
+    "additional_logic": "Magnam vel iusto sequi tempora deserunt illo distinctio culpa alias aspernatur, rem voluptates nostrum facere porro alias harum repellendus fugit maiores veritatis error? Sunt voluptates nulla debitis suscipit autem blanditiis magni reiciendis dolor possimus libero, quia sapiente delectus nostrum optio maiores sunt, repudiandae iusto sapiente molestias, perferendis atque animi id assumenda ut vel hic sit quam rem fugiat.",
+    "tools": "Id iste animi, doloremque facere blanditiis deleniti ex velit? Obcaecati velit cupiditate, enim placeat deleniti voluptate rem corporis soluta laboriosam consequatur possimus nisi, dolorem necessitatibus soluta illum enim aperiam porro accusantium dicta.",
+    "selections": {
+      "methods": [
+        "SNMP Traps",
+        "API Callbacks",
+        "File Monitoring"
+      ],
+      "go_no_go_text": "Quod perspiciatis porro deserunt alias eveniet vero nostrum quae beatae, praesentium cupiditate dicta atque dignissimos ut ducimus sint aspernatur architecto quam, facilis animi repellat iusto libero dolores quos, laboriosam neque rerum sunt, iure laudantium illo inventore possimus perferendis.",
+      "additional_logic_enabled": false,
+      "additional_logic_text": "",
+      "tools": [
+        "ELK Stack",
+        "Grafana"
+      ]
+    }
+  },
+  "orchestration": {
+    "summary": "Tempora nihil illum harum hic odio sunt, voluptates debitis officia quos autem fuga molestias mollitia soluta, quis optio quam atque omnis? Quo dicta dolor ipsa, maiores corporis quis eaque reprehenderit ab vitae tempora nihil ipsam, illum dolore earum temporibus fugiat unde eum doloremque, sit dolorem asperiores harum nesciunt, architecto saepe inventore velit non sed minima adipisci nemo. Minima eos ut magni dolorum quod consectetur accusantium nisi, sit dolorum reiciendis atque, omnis pariatur laudantium dolore veritatis ipsa eligendi rerum, repudiandae perspiciatis nam eaque reprehenderit corporis ipsam excepturi sit quo repellendus.",
+    "selections": {
+      "choice": "Yes – internal via custom scripts and logic",
+      "details": ""
+    }
+  },
+  "collector": {
+    "methods": "Aliquam maiores ipsa nostrum nesciunt dolore dolores sint, minus sunt ratione quod aliquid commodi dolorum officiis, saepe eius eligendi laudantium facilis doloribus magni, ab perferendis at voluptatum numquam delectus vel officia animi, distinctio eveniet commodi nobis omnis magnam libero quasi asperiores. Voluptates nobis iure tempore est ex cumque assumenda explicabo optio laboriosam, ipsum culpa delectus possimus qui maxime placeat fugiat, similique error non veritatis optio ad adipisci nam fugit, fugit ipsum a aliquid at quidem est magni sint explicabo ex, delectus dolor facilis nostrum perspiciatis ipsa deserunt aspernatur reprehenderit quia impedit.",
+    "auth": "Quos labore aut ea ducimus eum provident ipsum error, minus mollitia sunt voluptatem debitis molestias nulla, alias debitis nulla nostrum aliquid at. Reiciendis impedit atque nostrum voluptatum, est possimus sequi praesentium aliquid, eaque eum doloribus eligendi officiis natus laudantium quo?",
+    "handling": "Quaerat officiis tempora illo laborum quia aspernatur odit, mollitia facilis similique optio numquam esse, incidunt ducimus blanditiis inventore, recusandae facere impedit nulla ab labore magni libero accusantium perferendis. Veniam sed non, facilis tempore ab perferendis porro fugiat asperiores provident in ratione, dicta animi architecto cumque velit blanditiis quasi esse aut ullam voluptates, error sed delectus tempore similique nam quas quibusdam.",
+    "scale": "Aliquam quae mollitia autem ullam, temporibus eligendi repellat iusto officiis vel ducimus quis quae libero laudantium accusantium, laboriosam officiis id nesciunt eaque beatae, cum deserunt perferendis quam aut totam officiis tenetur exercitationem animi molestiae sunt, dignissimos hic beatae repellat? Laboriosam tenetur quos nobis doloremque, expedita alias velit dolorum error sed deserunt, molestias doloribus laudantium fugiat, illum officia impedit laboriosam, vitae assumenda voluptatibus.",
+    "tools": "Placeat nulla magni nostrum odit laboriosam sed ex porro, neque eligendi quis nostrum, deserunt dolor quae nisi amet rem et accusantium, debitis quos ab dolores accusamus pariatur assumenda amet nesciunt velit possimus. Reprehenderit magnam ex, praesentium atque tempore veniam odit eius vel vero pariatur repellat quisquam?",
+    "selections": {
+      "methods": [
+        "SNMP",
+        "SSH",
+        "NETCONF"
+      ],
+      "auth": [
+        "API Tokens",
+        "Username/Password"
+      ],
+      "handling": [
+        "Concurrent Execution",
+        "Batch Processing"
+      ],
+      "normalization": [
+        "JSON Schema",
+        "Custom Parser"
+      ],
+      "devices": "821 esse necessitatibus devices",
+      "metrics_per_sec": "8534 metrics/sec",
+      "cadence": "Every 22 hours",
+      "tools": [
+        "React",
+        "Streamlit"
+      ]
+    }
+  },
+  "executor": {
+    "methods": "Fugiat quaerat laboriosam vitae nisi quia numquam corporis facere possimus ipsa, ex facere unde nemo eaque corporis minus odit repudiandae, ex consequatur est labore vel quos, accusamus blanditiis ex perspiciatis sapiente. Ducimus temporibus placeat perspiciatis fugiat molestiae, numquam perferendis quibusdam et ab harum at, ipsa debitis dignissimos, enim ipsum ipsa, quos iure quidem vero?",
+    "selections": {
+      "methods": [
+        "SSH",
+        "NETCONF"
+      ]
+    }
+  },
+  "dependencies": [
+    {
+      "name": "Lorem ab nulla 1",
+      "details": "Sequi magnam ipsum eaque quia temporibus atque, harum ad ipsam eum obcaecati doloribus earum soluta, maxime ut possimus iure fugiat iusto minus harum aperiam, officia tenetur alias quo quae facere dolorum perspiciatis laborum doloremque?"
+    },
+    {
+      "name": "Lorem nulla fugit 2",
+      "details": ""
+    }
+  ],
+  "timeline": {
+    "staff_count": 4,
+    "start_date": "2024-01-15",
+    "total_business_days": 34,
+    "projected_completion": "2024-01-38",
+    "items": [
+      {
+        "name": "Requirements gathering",
+        "start": "2024-01-15",
+        "end": "2024-01-20",
+        "duration_bd": 5,
+        "notes": "Lorem ipsum requirements"
+      },
+      {
+        "name": "Design and architecture",
+        "start": "2024-01-15",
+        "end": "2024-01-27",
+        "duration_bd": 7,
+        "notes": "Lorem ipsum design"
+      },
+      {
+        "name": "Development phase",
+        "start": "2024-01-15",
+        "end": "2024-01-39",
+        "duration_bd": 14,
+        "notes": "Lorem ipsum development"
+      },
+      {
+        "name": "Testing and validation",
+        "start": "2024-01-15",
+        "end": "2024-01-35",
+        "duration_bd": 5,
+        "notes": "Lorem ipsum testing"
+      },
+      {
+        "name": "Deployment and rollout",
+        "start": "2024-01-15",
+        "end": "2024-01-38",
+        "duration_bd": 3,
+        "notes": "Lorem ipsum deployment"
+      }
+    ],
+    "staffing_plan_md": "Similique beatae exercitationem, rem repellat consectetur quod corporis sit unde praesentium tempora eligendi ipsum, maiores asperiores exercitationem placeat quis tempora ratione illo hic facere. Omnis quasi officia minus molestiae, illum doloribus incidunt veritatis dolorum, officiis illum explicabo numquam quia sed, error quibusdam est deleniti. Dolore officia odio culpa ad esse vel omnis quasi, eius at nulla soluta aliquam maxime nobis error id, deserunt debitis fuga neque, repellendus non illum laudantium illo voluptate culpa ratione sed est cum deserunt. Consequuntur odio repellat earum rerum porro dolorum molestiae, dignissimos aliquam illum ut?"
+  }
+}

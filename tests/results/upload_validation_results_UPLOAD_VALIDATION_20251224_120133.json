@@ -1,0 +1,112 @@
+{
+  "test_run": "UPLOAD_VALIDATION_20251224_120133",
+  "timestamp": "2025-12-24T12:01:33.335666",
+  "validations": [
+    {
+      "test": "Generate Test File",
+      "success": true,
+      "message": "Created: naf_report_lorem_test_20251224_120133.json",
+      "timestamp": "2025-12-24T12:01:33.337766",
+      "details": {
+        "path": "tests/naf_report_lorem_test_20251224_120133.json",
+        "size": 18196
+      }
+    },
+    {
+      "test": "API Upload",
+      "success": true,
+      "message": "Solution ID: b4c9d5f1-55d7-49a0-97e3-0bf624afa92c",
+      "timestamp": "2025-12-24T12:01:33.365010"
+    },
+    {
+      "test": "Title Validation",
+      "success": true,
+      "message": "Title correctly set to LOREM TEST",
+      "timestamp": "2025-12-24T12:01:33.367381"
+    },
+    {
+      "test": "Initiative Section",
+      "success": true,
+      "message": "All fields validated",
+      "timestamp": "2025-12-24T12:01:33.367406"
+    },
+    {
+      "test": "My_Role Section",
+      "success": true,
+      "message": "All fields validated",
+      "timestamp": "2025-12-24T12:01:33.367415"
+    },
+    {
+      "test": "Stakeholders Section",
+      "success": true,
+      "message": "All fields validated",
+      "timestamp": "2025-12-24T12:01:33.367421"
+    },
+    {
+      "test": "Presentation Section",
+      "success": true,
+      "message": "All fields validated",
+      "timestamp": "2025-12-24T12:01:33.367432"
+    },
+    {
+      "test": "Intent Section",
+      "success": true,
+      "message": "All fields validated",
+      "timestamp": "2025-12-24T12:01:33.367443"
+    },
+    {
+      "test": "Observability Section",
+      "success": true,
+      "message": "All fields validated",
+      "timestamp": "2025-12-24T12:01:33.367455"
+    },
+    {
+      "test": "Orchestration Section",
+      "success": true,
+      "message": "All fields validated",
+      "timestamp": "2025-12-24T12:01:33.367459"
+    },
+    {
+      "test": "Collector Section",
+      "success": true,
+      "message": "All fields validated",
+      "timestamp": "2025-12-24T12:01:33.367475"
+    },
+    {
+      "test": "Executor Section",
+      "success": true,
+      "message": "All fields validated",
+      "timestamp": "2025-12-24T12:01:33.367479"
+    },
+    {
+      "test": "Dependencies Section",
+      "success": true,
+      "message": "All fields validated",
+      "timestamp": "2025-12-24T12:01:33.367485"
+    },
+    {
+      "test": "Timeline Section",
+      "success": true,
+      "message": "All fields validated",
+      "timestamp": "2025-12-24T12:01:33.367493"
+    },
+    {
+      "test": "Overall Validation",
+      "success": true,
+      "message": "All sections validated successfully",
+      "timestamp": "2025-12-24T12:01:33.367494"
+    },
+    {
+      "test": "Export Validation",
+      "success": true,
+      "message": "All sections present in export",
+      "timestamp": "2025-12-24T12:01:33.370014"
+    },
+    {
+      "test": "Markdown Export",
+      "success": true,
+      "message": "Export contains test data",
+      "timestamp": "2025-12-24T12:01:33.372882"
+    }
+  ]
+}

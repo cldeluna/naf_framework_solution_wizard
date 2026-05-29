@@ -1,0 +1,113 @@
+{
+  "initiative": {
+    "author": "John Doe",
+    "title": "Test Project",
+    "description": "Test description",
+    "category": "Configuration Management",
+    "category_other": "",
+    "problem_statement": "",
+    "expected_use": "",
+    "error_conditions": "",
+    "assumptions": "",
+    "deployment_strategy": "",
+    "deployment_strategy_other": "",
+    "deployment_strategy_description": "",
+    "out_of_scope": "",
+    "no_move_forward": "",
+    "no_move_forward_reasons": []
+  },
+  "my_role": {
+    "who": "",
+    "skills": "",
+    "developer": ""
+  },
+  "stakeholders": {
+    "choices": {},
+    "other": ""
+  },
+  "presentation": {
+    "users": "",
+    "interaction": "",
+    "tools": "",
+    "auth": "",
+    "selections": {
+      "users": [],
+      "interactions": [],
+      "tools": [],
+      "auth": []
+    }
+  },
+  "intent": {
+    "development": "",
+    "provided": "",
+    "selections": {
+      "development": [],
+      "provided": []
+    }
+  },
+  "observability": {
+    "methods": "",
+    "go_no_go": "",
+    "additional_logic": "",
+    "tools": "",
+    "selections": {
+      "methods": [],
+      "go_no_go_text": "",
+      "additional_logic_enabled": false,
+      "additional_logic_text": "",
+      "tools": []
+    }
+  },
+  "orchestration": {
+    "summary": "",
+    "selections": {
+      "choice": "\u2014 Select one \u2014",
+      "details": ""
+    }
+  },
+  "collector": {
+    "methods": "",
+    "auth": "",
+    "handling": "",
+    "normalization": "",
+    "scale": "",
+    "tools": "",
+    "selections": {
+      "methods": [],
+      "auth": [],
+      "handling": [],
+      "normalization": [],
+      "devices": "",
+      "metrics_per_sec": "",
+      "cadence": "",
+      "tools": []
+    }
+  },
+  "executor": {
+    "methods": "",
+    "selections": {
+      "methods": []
+    }
+  },
+  "dependencies": [
+    {
+      "name": "Network Infrastructure",
+      "details": ""
+    },
+    {
+      "name": "Revision Control system",
+      "details": "GitHub"
+    }
+  ],
+  "timeline": {
+    "start_date": "2026-05-29",
+    "total_business_days": 0,
+    "projected_completion": null,
+    "build_buy": "Build In-House",
+    "staff_count": 0,
+    "external_staff_count": 0,
+    "staffing_plan_md": "",
+    "holiday_region": "None",
+    "items": []
+  }
+}

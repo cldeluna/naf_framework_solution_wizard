@@ -1,0 +1,172 @@
+{
+  "initiative": {
+    "author": "",
+    "title": "Test Automation Project",
+    "description": "A test project for automation",
+    "category": "Network Monitoring",
+    "category_other": "",
+    "problem_statement": "Need to monitor network devices",
+    "expected_use": "Daily monitoring of network health",
+    "error_conditions": "Device unreachable",
+    "assumptions": "Devices are accessible",
+    "deployment_strategy": "Centralized",
+    "deployment_strategy_other": "",
+    "deployment_strategy_description": "Deployed at central location",
+    "out_of_scope": "Wireless networks",
+    "no_move_forward": "None",
+    "no_move_forward_reasons": [
+      "Technical complexity"
+    ]
+  },
+  "my_role": {
+    "who": "I'm a network engineer.",
+    "skills": "I have some scripting skills",
+    "developer": "I'll do it myself."
+  },
+  "stakeholders": {
+    "choices": {
+      "Network Operations": "Primary",
+      "Security Team": "Secondary"
+    },
+    "other": "Custom stakeholder"
+  },
+  "presentation": {
+    "users": "This solution targets Network Engineers and Security Analysts.",
+    "interaction": "Users will interact with the solution via Web Dashboard and API.",
+    "tools": "The presentation layer will be built using Grafana.",
+    "auth": "Presentation authentication will use SSO.",
+    "selections": {
+      "users": [
+        "Network Engineers",
+        "Security Analysts"
+      ],
+      "interactions": [
+        "Web Dashboard",
+        "API"
+      ],
+      "tools": [
+        "Grafana"
+      ],
+      "auth": [
+        "SSO"
+      ]
+    }
+  },
+  "intent": {
+    "development": "We will develop Python Scripts and Ansible Playbooks.",
+    "provided": "We will use existing SNMP and REST APIs.",
+    "selections": {
+      "development": [
+        "Python Scripts",
+        "Ansible Playbooks"
+      ],
+      "provided": [
+        "SNMP",
+        "REST APIs"
+      ]
+    }
+  },
+  "observability": {
+    "methods": "State will be represented using Prometheus and InfluxDB.",
+    "go_no_go": "Device must be reachable",
+    "additional_logic": "Additional gating logic: Check device status before alerting",
+    "tools": "Observability tools include Grafana.",
+    "selections": {
+      "methods": [
+        "Prometheus",
+        "InfluxDB"
+      ],
+      "go_no_go_text": "Device must be reachable",
+      "additional_logic_enabled": true,
+      "additional_logic_text": "Check device status before alerting",
+      "tools": [
+        "Grafana"
+      ]
+    }
+  },
+  "orchestration": {
+    "summary": "Orchestration will be handled using Ansible: Using Ansible for configuration management",
+    "selections": {
+      "choice": "Ansible",
+      "details": "Using Ansible for configuration management"
+    }
+  },
+  "collector": {
+    "methods": "Data will be collected using SNMP and NETCONF.",
+    "auth": "Collection authentication will use SSH Keys.",
+    "handling": "Data will be handled using Retry Logic.",
+    "normalization": "Data will be normalized using YANG Models.",
+    "scale": "Scale considerations: devices/scope: Cisco, Juniper switches; metrics: Interface stats, CPU, memory; cadence: 5 minutes.",
+    "tools": "Collection tools include NAPALM.",
+    "selections": {
+      "methods": [
+        "SNMP",
+        "NETCONF"
+      ],
+      "auth": [
+        "SSH Keys"
+      ],
+      "handling": [
+        "Retry Logic"
+      ],
+      "normalization": [
+        "YANG Models"
+      ],
+      "devices": "Cisco, Juniper switches",
+      "metrics_per_sec": "Interface stats, CPU, memory",
+      "cadence": "5 minutes",
+      "tools": [
+        "NAPALM"
+      ]
+    }
+  },
+  "executor": {
+    "methods": "Changes will be executed using 0 and 1.",
+    "selections": {
+      "methods": [
+        "0",
+        "1"
+      ]
+    }
+  },
+  "dependencies": [
+    {
+      "name": "network_infra",
+      "details": ""
+    },
+    {
+      "name": "revision_control",
+      "details": "GitHub"
+    },
+    {
+      "name": "monitoring_system",
+      "details": "Prometheus"
+    }
+  ],
+  "timeline": {
+    "start_date": "2024-01-01",
+    "total_business_days": 15,
+    "projected_completion": "2024-01-21",
+    "build_buy": "Build In-House",
+    "staff_count": 2,
+    "external_staff_count": 0,
+    "staffing_plan_md": "2 network engineers will work on this project",
+    "holiday_region": "US",
+    "items": [
+      {
+        "name": "Planning",
+        "duration_bd": 5,
+        "start": "2024-01-01",
+        "end": "2024-01-07",
+        "notes": "Initial planning phase"
+      },
+      {
+        "name": "Development",
+        "duration_bd": 10,
+        "start": "2024-01-08",
+        "end": "2024-01-21",
+        "notes": "Develop the solution"
+      }
+    ]
+  }
+}

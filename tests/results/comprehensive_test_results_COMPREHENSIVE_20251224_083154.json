@@ -1,0 +1,63 @@
+{
+  "test_run": "COMPREHENSIVE_20251224_083154",
+  "start_time": "2025-12-24T08:31:54.750869",
+  "api_url": "http://localhost:8001",
+  "test_suites": [
+    {
+      "name": "Unit Test: test_data_generator.py",
+      "success": true,
+      "duration_seconds": 0,
+      "output": "✅ Test data saved to: tests/naf_report_lorem_test_20251224_083154.json\n📝 Generated test data for: LOREM TEST\n📊 Total sections: 11\n",
+      "error": "",
+      "timestamp": "2025-12-24T08:31:54.888322"
+    },
+    {
+      "name": "Unit Test: test_csat_utils.py",
+      "success": false,
+      "duration_seconds": 0,
+      "output": "",
+      "error": "Traceback (most recent call last):\n  File \"/Users/claudiadeluna/Indigo Wire Networks Dropbox/Claudia de Luna/scripts/python/2026/naf_framework_solution_wizard/tests/test_csat_utils.py\", line 11, in <module>\n    from csat_utils import (\nModuleNotFoundError: No module named 'csat_utils'\n",
+      "timestamp": "2025-12-24T08:31:55.191015"
+    },
+    {
+      "name": "Unit Test: test_wizard_utils.py",
+      "success": true,
+      "duration_seconds": 0,
+      "output": "",
+      "error": "",
+      "timestamp": "2025-12-24T08:31:55.304400"
+    },
+    {
+      "name": "Data Generation Tests",
+      "success": true,
+      "duration_seconds": 0,
+      "output": "✅ Test data saved to: tests/naf_report_lorem_test_20251224_083155.json\n📝 Generated test data for: LOREM TEST\n📊 Total sections: 11\n",
+      "error": "",
+      "timestamp": "2025-12-24T08:31:55.362064"
+    },
+    {
+      "name": "API Tests",
+      "success": true,
+      "duration_seconds": 0,
+      "output": "🧪 Running NAF Solution Wizard Lorem Test\n🚀 Starting NAF Solution Wizard Test Suite\n📝 Test Run: LOREM_TEST_20251224_083155\n🌐 API URL: http://localhost:8001\n============================================================\n✅ API Health Check: Status: healthy\n✅ Create Solution: Solution ID: 96d9010a-3220-4369-969b-6a3fe1aaf505\n💾 Test data saved to: tests/generated/naf_report_lorem_test_20251224_083155.json\n📁 This file can be manually uploaded to the Solution Wizard\n✅ Get Solution: Retrieved: LOREM TEST\n✅ Update Solution: Updated solution: 96d9010a-3220-4369-969b-6a3fe1aaf505\n💾 Export saved to: tests/exports/lorem_export_96d9010a-3220-4369-969b-6a3fe1aaf505.json\n✅ Export Solution (JSON): Exported as JSON\n💾 Export saved to: tests/exports/lorem_export_96d9010a-3220-4369-969b-6a3fe1aaf505.markdown\n✅ Export Solution (Markdown): Exported as Markdown\n✅ List Solutions: Found 16 solutions\n✅ Generate Test File: Created: naf_report_lorem_test_20251224_083155.json\n✅ API Upload: Solution ID: 9c84752d-c549-429c-971c-188dce1d333b\n✅ Title Validation: Title correctly set to LOREM TEST\n✅ Initiative Section: All fields validated\n✅ My_Role Section: All fields validated\n✅ Stakeholders Section: All fields validated\n✅ Presentation Section: All fields validated\n✅ Intent Section: All fields validated\n✅ Observability Section: All fields validated\n✅ Orchestration Section: All fields validated\n✅ Collector Section: All fields validated\n✅ Executor Section: All fields validated\n✅ Dependencies Section: All fields validated\n✅ Timeline Section: All fields validated\n✅ Overall Validation: All sections validated successfully\n✅ Export Validation: All sections present in export\n✅ Markdown Export: Export contains test data\n✅ Upload Validation: All upload validations passed\n✅ Delete Solution: Deleted solution: 96d9010a-3220-4369-969b-6a3fe1aaf505\n============================================================\n📊 Test Results: 9/9 passed\n💾 Results saved to: tests/results/test_results_LOREM_TEST_20251224_083155.json\n🎉 All tests passed!\n",
+      "error": "",
+      "timestamp": "2025-12-24T08:31:55.573022"
+    },
+    {
+      "name": "Upload Validation Tests",
+      "success": true,
+      "duration_seconds": 0,
+      "output": "🧪 Running NAF Solution Wizard Upload Validation Test\n🧪 Starting NAF Solution Wizard Upload Validation\n📝 Test Run: UPLOAD_VALIDATION_20251224_083155\n🌐 API URL: http://localhost:8001\n============================================================\n✅ Generate Test File: Created: naf_report_lorem_test_20251224_083155.json\n✅ API Upload: Solution ID: 526d093a-e00a-4100-8a8d-83a6a98a4df0\n✅ Title Validation: Title correctly set to LOREM TEST\n✅ Initiative Section: All fields validated\n✅ My_Role Section: All fields validated\n✅ Stakeholders Section: All fields validated\n✅ Presentation Section: All fields validated\n✅ Intent Section: All fields validated\n✅ Observability Section: All fields validated\n✅ Orchestration Section: All fields validated\n✅ Collector Section: All fields validated\n✅ Executor Section: All fields validated\n✅ Dependencies Section: All fields validated\n✅ Timeline Section: All fields validated\n✅ Overall Validation: All sections validated successfully\n✅ Export Validation: All sections present in export\n✅ Markdown Export: Export contains test data\n============================================================\n📊 Validation Results: 17/17 passed\n💾 Results saved to: tests/results/upload_validation_results_UPLOAD_VALIDATION_20251224_083155.json\n📁 Test file: tests/naf_report_lorem_test_20251224_083155.json\n🎉 All upload validations passed!\n",
+      "error": "",
+      "timestamp": "2025-12-24T08:31:55.717925"
+    }
+  ],
+  "summary": {
+    "total_tests": 6,
+    "passed": 5,
+    "failed": 1,
+    "success_rate": 83.33333333333334
+  },
+  "end_time": "2025-12-24T08:31:55.718005",
+  "total_duration": 0.967136
+}

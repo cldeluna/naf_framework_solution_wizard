@@ -1,0 +1,55 @@
+{
+  "test_run": "COMPREHENSIVE_20251224_083204",
+  "start_time": "2025-12-24T08:32:04.324111",
+  "api_url": "http://localhost:8001",
+  "test_suites": [
+    {
+      "name": "Unit Test: test_data_generator.py",
+      "success": true,
+      "duration_seconds": 0,
+      "output": "✅ Test data saved to: tests/naf_report_lorem_test_20251224_083204.json\n📝 Generated test data for: LOREM TEST\n📊 Total sections: 11\n",
+      "error": "",
+      "timestamp": "2025-12-24T08:32:04.420428"
+    },
+    {
+      "name": "Unit Test: test_wizard_utils.py",
+      "success": true,
+      "duration_seconds": 0,
+      "output": "",
+      "error": "",
+      "timestamp": "2025-12-24T08:32:04.531908"
+    },
+    {
+      "name": "Data Generation Tests",
+      "success": true,
+      "duration_seconds": 0,
+      "output": "✅ Test data saved to: tests/naf_report_lorem_test_20251224_083204.json\n📝 Generated test data for: LOREM TEST\n📊 Total sections: 11\n",
+      "error": "",
+      "timestamp": "2025-12-24T08:32:04.585987"
+    },
+    {
+      "name": "API Tests",
+      "success": true,
+      "duration_seconds": 0,
+      "output": "🧪 Running NAF Solution Wizard Lorem Test\n🚀 Starting NAF Solution Wizard Test Suite\n📝 Test Run: LOREM_TEST_20251224_083204\n🌐 API URL: http://localhost:8001\n============================================================\n✅ API Health Check: Status: healthy\n✅ Create Solution: Solution ID: cd40ad96-5a94-4a0f-a48f-9e2e3c197d0c\n💾 Test data saved to: tests/generated/naf_report_lorem_test_20251224_083204.json\n📁 This file can be manually uploaded to the Solution Wizard\n✅ Get Solution: Retrieved: LOREM TEST\n✅ Update Solution: Updated solution: cd40ad96-5a94-4a0f-a48f-9e2e3c197d0c\n💾 Export saved to: tests/exports/lorem_export_cd40ad96-5a94-4a0f-a48f-9e2e3c197d0c.json\n✅ Export Solution (JSON): Exported as JSON\n💾 Export saved to: tests/exports/lorem_export_cd40ad96-5a94-4a0f-a48f-9e2e3c197d0c.markdown\n✅ Export Solution (Markdown): Exported as Markdown\n✅ List Solutions: Found 18 solutions\n✅ Generate Test File: Created: naf_report_lorem_test_20251224_083204.json\n✅ API Upload: Solution ID: 51d814ee-d078-4dc1-8f64-f9b89aceaa5e\n✅ Title Validation: Title correctly set to LOREM TEST\n✅ Initiative Section: All fields validated\n✅ My_Role Section: All fields validated\n✅ Stakeholders Section: All fields validated\n✅ Presentation Section: All fields validated\n✅ Intent Section: All fields validated\n✅ Observability Section: All fields validated\n✅ Orchestration Section: All fields validated\n✅ Collector Section: All fields validated\n✅ Executor Section: All fields validated\n✅ Dependencies Section: All fields validated\n✅ Timeline Section: All fields validated\n✅ Overall Validation: All sections validated successfully\n✅ Export Validation: All sections present in export\n✅ Markdown Export: Export contains test data\n✅ Upload Validation: All upload validations passed\n✅ Delete Solution: Deleted solution: cd40ad96-5a94-4a0f-a48f-9e2e3c197d0c\n============================================================\n📊 Test Results: 9/9 passed\n💾 Results saved to: tests/results/test_results_LOREM_TEST_20251224_083204.json\n🎉 All tests passed!\n",
+      "error": "",
+      "timestamp": "2025-12-24T08:32:04.835934"
+    },
+    {
+      "name": "Upload Validation Tests",
+      "success": true,
+      "duration_seconds": 0,
+      "output": "🧪 Running NAF Solution Wizard Upload Validation Test\n🧪 Starting NAF Solution Wizard Upload Validation\n📝 Test Run: UPLOAD_VALIDATION_20251224_083204\n🌐 API URL: http://localhost:8001\n============================================================\n✅ Generate Test File: Created: naf_report_lorem_test_20251224_083204.json\n✅ API Upload: Solution ID: f6b64a2c-d3b7-4115-b0c1-6e50b8ebd968\n✅ Title Validation: Title correctly set to LOREM TEST\n✅ Initiative Section: All fields validated\n✅ My_Role Section: All fields validated\n✅ Stakeholders Section: All fields validated\n✅ Presentation Section: All fields validated\n✅ Intent Section: All fields validated\n✅ Observability Section: All fields validated\n✅ Orchestration Section: All fields validated\n✅ Collector Section: All fields validated\n✅ Executor Section: All fields validated\n✅ Dependencies Section: All fields validated\n✅ Timeline Section: All fields validated\n✅ Overall Validation: All sections validated successfully\n✅ Export Validation: All sections present in export\n✅ Markdown Export: Export contains test data\n============================================================\n📊 Validation Results: 17/17 passed\n💾 Results saved to: tests/results/upload_validation_results_UPLOAD_VALIDATION_20251224_083204.json\n📁 Test file: tests/naf_report_lorem_test_20251224_083204.json\n🎉 All upload validations passed!\n",
+      "error": "",
+      "timestamp": "2025-12-24T08:32:04.973870"
+    }
+  ],
+  "summary": {
+    "total_tests": 5,
+    "passed": 5,
+    "failed": 0,
+    "success_rate": 100.0
+  },
+  "end_time": "2025-12-24T08:32:04.973950",
+  "total_duration": 0.649839
+}

@@ -1,0 +1,173 @@
+
+![NAF Icon](images/naf_icon.png)
+
+***NAF Network Automation Framework Solution Design Document***
+
+Generated: 2025-12-24 08:45:10
+
+## Overview of Automation Initiative
+# LOREM TEST - UPDATED
+---
+
+## Scope
+Expedita assumenda velit illo totam nemo odit cum tempora excepturi facere repellat, iure excepturi dignissimos corporis sit natus, obcaecati laboriosam expedita? Voluptatum amet itaque, aliquid modi mollitia repellat quisquam laborum accusantium illum nihil, exercitationem nesciunt ullam iusto, tenetur officia incidunt vel quam repudiandae pariatur aspernatur laudantium temporibus? Id eaque unde, quasi placeat quisquam doloribus distinctio et ad rem autem quos eligendi. Unde ut qui maxime magni dignissimos necessitatibus tempore cum aperiam natus quasi, temporibus vel voluptates odio neque eaque doloribus velit amet illo, at illum eos, veritatis eos iusto culpa aspernatur earum nostrum perferendis mollitia. Minima asperiores quasi voluptatum animi dignissimos placeat quibusdam inventore, libero fugit perspiciatis inventore beatae odio dolor exercitationem cumque consectetur nihil rem, sit deleniti odio pariatur illo architecto fuga natus neque dolor labore, soluta vitae sunt libero nostrum, alias officiis labore omnis sit enim sint doloribus.
+## Category
+Network Automation
+## Problem Statement
+Ratione optio veniam nulla labore accusamus nesciunt deleniti est, eum quasi neque incidunt deleniti ipsa maiores, iste quidem harum repellendus adipisci error corrupti non, tempore et quae rem voluptas quam itaque magnam ut eaque facilis ratione, odit deleniti expedita blanditiis. Nemo aspernatur ullam molestiae iure id maiores laudantium nam, saepe vero sequi sunt libero aliquam quis consectetur, temporibus maxime perspiciatis id rem voluptatum et iusto ut. Deleniti voluptate fugit fuga inventore sit, ut qui doloremque fugit laudantium reiciendis magnam nemo quae.
+## Out of scope
+Nemo unde sapiente quidem pariatur vel at fuga voluptatibus, non exercitationem praesentium neque cum porro officia quam nisi dolores, possimus suscipit fugiat, optio quisquam accusamus nisi illo, explicabo delectus sapiente inventore ullam ipsam voluptas? Voluptatem libero nulla qui, reiciendis debitis illo odio?
+## Expected use
+Rerum voluptas suscipit labore cum officiis dolore maiores esse temporibus, corporis esse odit tempora cumque in quidem incidunt hic alias rem, minima omnis nam harum praesentium odio, provident sequi quae dolore obcaecati culpa aspernatur doloremque fugiat, autem facere veniam nostrum animi odit quos? Quidem corrupti eaque non voluptas temporibus et ipsa ipsam officia, obcaecati animi doloremque amet illo adipisci maxime esse neque, corporis minus ea distinctio commodi aut perferendis voluptatem velit, quibusdam quisquam dignissimos quas eum soluta at velit perspiciatis iste consequatur porro, fugit magnam nobis voluptate doloribus saepe praesentium pariatur distinctio. Exercitationem ipsa ea, expedita incidunt earum corrupti tenetur nostrum?
+## Error Conditions
+Quos voluptates sed eius obcaecati nihil, magni repellat natus quidem illum quibusdam nostrum fugiat ab, iusto cupiditate aperiam non quia a voluptatum dolore dicta totam, voluptatem laudantium beatae eveniet debitis molestias consequatur mollitia? Dolores eum quaerat fugiat ea blanditiis amet quasi, quae quia temporibus autem, quidem expedita minima vero nobis illum labore at?
+## Assumptions
+Sit suscipit et qui vitae eum ut culpa exercitationem itaque est, delectus cupiditate maiores incidunt ullam quae laudantium ab, obcaecati possimus deserunt dolore veritatis nostrum cum, harum veritatis nulla distinctio doloribus ad repellendus accusamus aspernatur, iusto ut quae. Inventore vitae eligendi delectus optio quis ratione labore sapiente laudantium cum, iure debitis harum ex cupiditate vero aspernatur deserunt animi similique, nisi rerum maxime placeat repellendus doloribus adipisci, excepturi officia quis, facilis illo repellendus libero molestias ut deserunt officiis iusto nulla assumenda.
+## Deployment Strategy
+Canary Release
+## Deployment Strategy Description
+Neque alias consequatur numquam eius aut modi molestias autem, veritatis iure repellendus ex? Perferendis est ea quasi laudantium nemo, vero quo iste vitae suscipit voluptates quis exercitationem cupiditate, animi illum aperiam expedita harum, autem doloremque iste maiores fugiat hic quia. Hic vitae eaque molestias ea asperiores, repellendus officia repudiandae dolore itaque, vero odit adipisci impedit dolore, quaerat iste dicta beatae possimus exercitationem.
+
+
+## My Role
+- Who: Lorem officiis deleniti Engineer
+- Skills: Et consequuntur molestiae expedita maiores, ad odio vero est consequuntur ratione, sint dignissimos et accusamus nulla harum ut eaque, dicta ad totam tempore dolorem officiis nihil? Esse aperiam excepturi molestiae quos corrupti fugit minus deserunt id, velit consectetur laboriosam cum, impedit animi unde distinctio corporis similique voluptatem expedita suscipit praesentium nostrum labore, maiores cumque impedit quaerat?
+- Developer: Hybrid approach
+
+## Stakeholders
+
+
+- **Technical Stakeholders**: Network Engineering Team
+
+- **Business Stakeholders**: Operations Manager
+
+- **User Stakeholders**: Support Team
+
+
+- **Other**: Lorem illum odit aliquid stakeholders
+
+
+
+## Automation Use Cases Summary
+_This solution design focuses on the initiative scope rather than specific use cases._
+
+
+---
+# Framework Elements
+
+## Presentation
+
+
+
+
+- Selected user types: Security Analysts, System Administrators, Network Engineers
+- Interaction modes: API Access, Web Dashboard
+- Presentation tools: React, Streamlit
+- Authentication mechanisms: SAML, OAuth2
+
+
+
+## Intent
+
+
+- Intent development format(s): XML, JSON
+- Intent delivery format(s): gRPC, REST API
+
+
+
+## Observability
+
+
+
+
+
+- Observability method(s): SNMP Traps, API Callbacks, File Monitoring
+
+- Go/No-Go text: Quidem nam eos, debitis consequatur ut eaque recusandae eligendi tempore?
+
+
+- Observability tool(s): Grafana, ELK Stack
+
+
+
+
+## Orchestration
+
+
+
+
+Voluptate adipisci modi recusandae magni perspiciatis vero facere deleniti saepe cumque, fugit officiis velit obcaecati quasi consequatur. Reiciendis nobis vero perferendis, molestias veritatis voluptatibus inventore ex, eos omnis quas ullam eveniet ad totam repellendus modi at alias, laborum reprehenderit vel cum, quam blanditiis sint reprehenderit autem possimus provident at? Similique rerum laborum officia omnis quas odit molestias, suscipit assumenda eius deleniti vel, sequi quos enim ut repudiandae et laboriosam officia dolore reprehenderit.
+
+- Orchestration used: Yes
+- Orchestration details: Veritatis quibusdam tempore architecto vel commodi dignissimos repudiandae, tenetur perferendis quaerat accusamus facilis illum culpa commodi quam itaque cupiditate, doloremque error eligendi labore doloribus? Doloremque nobis illum quo incidunt earum fugiat at eius similique, excepturi tempora pariatur quos sed hic, laudantium officiis enim excepturi quos odio inventore fugit deserunt dolores, repellendus nihil cupiditate odit?
+
+
+
+## Collector
+
+
+
+
+
+
+
+
+- Collection method(s): SSH, REST APIs, NETCONF
+
+- Authentication mechanism(s): API Tokens, Username/Password
+
+- Traffic handling: Batch Processing, Concurrent Execution
+
+- Normalization: Custom Parser, No Normalization
+
+- Target devices: 82 inventore ducimus devices
+
+- Metrics per second: 2222 metrics/sec
+
+- Collection cadence: Every 52 seconds
+
+- Collection tool(s): Streamlit, FastAPI
+
+
+
+
+## Executor
+
+- Execution method(s): RESTCONF, Custom Protocol
+
+
+
+# Dependencies & External Interfaces
+---
+- Lorem quis porro 1
+- Lorem quidem deserunt 2
+- Lorem repudiandae itaque 3: Beatae sit animi distinctio vitae culpa commodi voluptate est deleniti maxime, dolor architecto repellat deleniti illo quae dicta iste nostrum repudiandae.
+- Lorem odit ab 4
+
+
+# Staffing, Timeline, & Milestones
+---
+
+
+
+
+- Staff 4 • Start 2024-01-15 • Total 34 bd • Completion 2024-01-38
+
+- Requirements gathering: 2024-01-15 → 2024-01-20 (5 bd) — Lorem ipsum requirements
+- Design and architecture: 2024-01-15 → 2024-01-27 (7 bd) — Lorem ipsum design
+- Development phase: 2024-01-15 → 2024-01-39 (14 bd) — Lorem ipsum development
+- Testing and validation: 2024-01-15 → 2024-01-35 (5 bd) — Lorem ipsum testing
+- Deployment and rollout: 2024-01-15 → 2024-01-38 (3 bd) — Lorem ipsum deployment
+
+
+### Gantt Chart
+Gantt chart image not available
+
+
+## Staffing Plan
+Iste vel architecto nulla velit voluptas saepe porro earum, similique cum ab minus eveniet earum consectetur totam aperiam velit quas, harum odit dolore explicabo expedita, expedita aperiam ducimus quis saepe est facilis, magni odit eius facilis unde nesciunt sequi doloribus incidunt? Ullam magni aliquam quaerat harum aut veniam modi nobis expedita, totam exercitationem ratione aut repellendus voluptatum numquam rem sequi est, at laboriosam vel sit voluptatem soluta. Nemo quas ducimus rerum aliquam amet distinctio vel porro qui voluptate, asperiores amet corporis eius exercitationem placeat adipisci sequi libero ut dolor repudiandae, animi at mollitia voluptatibus temporibus laborum qui velit itaque excepturi, recusandae esse odio autem tempora non animi soluta modi, dolor neque atque corporis illum delectus saepe velit corrupti dolores. Suscipit repudiandae itaque voluptas aliquid, illo voluptatem beatae debitis ea eveniet amet modi, blanditiis numquam ea corporis libero ducimus debitis in ex nesciunt?
+
+
+---
+
+NAF NAF Solution Wizard provided by EIA https://eianow.com
