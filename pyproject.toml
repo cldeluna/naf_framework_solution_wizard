@@ -25,7 +25,7 @@ testpaths = ["tests"]
 norecursedirs = ["tests/archive", ".*", "build", "dist", "CVS", "_darcs", "{arch}", "*.egg"]
 
 [tool.uv]
-package = true
+package = false
 
 [dependency-groups]
 dev = ["pytest", "pytest-timeout"]
