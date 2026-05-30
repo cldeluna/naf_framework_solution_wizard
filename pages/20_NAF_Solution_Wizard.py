@@ -1939,38 +1939,269 @@ def solution_wizard_main():
 
     @st.dialog("Problem Statement & Description", width="large")
     def _dlg_problem_statement():
-        st.markdown(
-            """
-Define the **WHY** of your automation project:
+        ss = st.session_state
 
-- **Title & description** — Name and scope your initiative
-- **Category** — Classify the type of automation
-- **Problem statement** — What problem does this solve?
-- **Expected use / triggers** — When and how will it run?
-- **Error conditions & assumptions**
-- **Deployment strategy** — How will it be rolled out?
-- **Risk of not automating** — Business justification
-
-👇 Complete this section in the **"Automation Project Problem Statement & Description"** expander below.
-            """
+        # ── Author, Title, Description ───────────────────────────────
+        st.text_input(
+            "Author",
+            key="dlg_wizard_author",
+            value=ss.get("_wizard_author", ""),
+            help="Name of the person creating this automation initiative",
         )
-        if st.button("Close", type="primary", use_container_width=True):
+        _dc1, _dc2 = st.columns([2, 3])
+        with _dc1:
+            st.text_input(
+                "Automation initiative title",
+                key="dlg_wizard_automation_title",
+                value=ss.get("_wizard_automation_title", ""),
+            )
+        with _dc2:
+            st.text_area(
+                "Short description / scope",
+                height=80,
+                key="dlg_wizard_automation_description",
+                value=ss.get("_wizard_automation_description", ""),
+            )
+
+        # ── Category (from YAML) ─────────────────────────────────────
+        _cat_yaml = Path(__file__).parent.parent / "use_case_categories.yml"
+        try:
+            with open(_cat_yaml, "r") as f:
+                _cat_data = yaml.safe_load(f)
+            _cat_opts = list(_cat_data.keys()) if _cat_data else []
+        except Exception:
+            _cat_opts = []
+        _cat_all = _cat_opts + ["Other"]
+        _cur_cat = ss.get("_wizard_category", "")
+        _cat_idx = _cat_all.index(_cur_cat) if _cur_cat in _cat_all else None
+        dlg_cat = st.selectbox(
+            "Category", options=_cat_all, index=_cat_idx,
+            key="dlg_wizard_category", placeholder="Choose a category",
+            help="Select a category from the list. Choose 'Other' if your initiative doesn't fit.",
+        )
+        if dlg_cat == "Other":
+            st.text_input(
+                "Custom category", key="dlg_wizard_category_other",
+                value=ss.get("_wizard_category_other", ""),
+            )
+
+        # ── Core text fields ─────────────────────────────────────────
+        st.text_area(
+            "Problem Statement (Markdown supported)", height=80,
+            key="dlg_wizard_problem_statement",
+            value=ss.get("_wizard_problem_statement", ""),
+            help="Describe the circumstances under which this automation will be used.",
+        )
+        st.text_area(
+            "Expected Use/Triggers (Markdown supported)", height=80,
+            key="dlg_wizard_expected_use",
+            value=ss.get("_wizard_expected_use", ""),
+            help="Describe the circumstances under which this automation will be used or triggered.",
+        )
+        st.text_area(
+            "Error Conditions (Markdown supported)", height=80,
+            key="dlg_wizard_error_conditions",
+            value=ss.get("_wizard_error_conditions", ""),
+            help="Note any expected error conditions that need to be addressed in the initial version",
+        )
+        st.text_area(
+            "Assumptions (Markdown supported)", height=80,
+            key="dlg_wizard_assumptions",
+            value=ss.get("_wizard_assumptions", ""),
+            help="List any assumptions made for this automation initiative.",
+        )
+        st.text_area(
+            "Out of Scope (optional)", height=80,
+            key="dlg_wizard_out_of_scope",
+            value=ss.get("_wizard_out_of_scope", ""),
+            help="List areas intentionally excluded from this initiative.",
+        )
+
+        # ── Deployment Strategy (from YAML) ──────────────────────────
+        _dep_yaml = Path(__file__).parent.parent / "deployment_strategies.yml"
+        try:
+            with open(_dep_yaml, "r") as f:
+                _dep_data = yaml.safe_load(f)
+            _dep_opts = list(_dep_data.keys()) if _dep_data else []
+        except Exception:
+            _dep_opts = []
+        _dep_all = _dep_opts + ["Other"]
+        _cur_dep = ss.get("_wizard_deployment_strategy", "")
+        _dep_idx = _dep_all.index(_cur_dep) if _cur_dep in _dep_all else None
+        dlg_dep = st.selectbox(
+            "Standard Deployment Strategy", options=_dep_all, index=_dep_idx,
+            key="dlg_wizard_deployment_strategy", placeholder="Choose a deployment strategy",
+            help="Select a standard deployment strategy or choose 'Other' to enter a custom one.",
+        )
+        if dlg_dep == "Other":
+            st.text_input(
+                "Custom Deployment Strategy", key="dlg_wizard_deployment_strategy_other",
+                value=ss.get("_wizard_deployment_strategy_other", ""),
+                placeholder="e.g., Pilot Program",
+            )
+        st.text_area(
+            "Deployment Strategy Description (optional)", height=80,
+            key="dlg_wizard_deployment_strategy_description",
+            value=ss.get("_wizard_deployment_strategy_description", ""),
+            help="Additional details about how the automation will be deployed.",
+        )
+
+        # ── Risk of not automating ───────────────────────────────────
+        _standard_reasons = [
+            "We are not improving the way our customers interact with us for service provisioning",
+            "We are not improving the speed and quality of our service provisioning",
+            "We are not meeting feature or service demands from our customers",
+            "We will continue to pay for 3rd party support for this task",
+            "This task will continue to be executed individually in an inconsistent and ad-hoc manner with varying degrees of success and documentation",
+            "This task will continue to take far longer than it should resulting in poor customer satisfaction",
+            "We risk continuing to add technical debt to the logical infrastructure",
+        ]
+        st.multiselect(
+            "Risk of not doing the automation", options=_standard_reasons,
+            default=ss.get("no_move_forward_reasons", []),
+            key="dlg_no_move_forward_reasons",
+            help="Select one or more risks that apply to your project.",
+            placeholder="Choose one or more options",
+        )
+        st.text_area(
+            "Additional risks in not moving forward (optional)", height=80,
+            key="dlg_no_move_forward",
+            value=ss.get("no_move_forward", ""),
+        )
+
+        # ── Submit ───────────────────────────────────────────────────
+        st.divider()
+        if st.button("Submit Problem Statement", type="primary", use_container_width=True):
+            # Sync all dlg_ keys to real keys
+            _text_map = {
+                "dlg_wizard_author": "_wizard_author",
+                "dlg_wizard_automation_title": "_wizard_automation_title",
+                "dlg_wizard_automation_description": "_wizard_automation_description",
+                "dlg_wizard_problem_statement": "_wizard_problem_statement",
+                "dlg_wizard_expected_use": "_wizard_expected_use",
+                "dlg_wizard_error_conditions": "_wizard_error_conditions",
+                "dlg_wizard_assumptions": "_wizard_assumptions",
+                "dlg_wizard_out_of_scope": "_wizard_out_of_scope",
+                "dlg_wizard_deployment_strategy": "_wizard_deployment_strategy",
+                "dlg_wizard_deployment_strategy_other": "_wizard_deployment_strategy_other",
+                "dlg_wizard_deployment_strategy_description": "_wizard_deployment_strategy_description",
+                "dlg_wizard_category": "_wizard_category",
+                "dlg_wizard_category_other": "_wizard_category_other",
+                "dlg_no_move_forward": "no_move_forward",
+            }
+            for dlg_k, real_k in _text_map.items():
+                ss[real_k] = ss.get(dlg_k, "")
+            ss["no_move_forward_reasons"] = ss.get("dlg_no_move_forward_reasons", [])
             st.rerun()
 
     @st.dialog("Stakeholders", width="large")
     def _dlg_stakeholders():
-        st.markdown(
-            """
-Define the **WHO** of your automation project:
+        SENTINEL_SELECT = "— Select one —"
 
-- **My Role** — Who is filling out the wizard, your technical skills, who will develop the automation
-- **Stakeholder categories** — Technical, User/Customer, Governance/Risk, Business/Leadership, External/Vendor
-- **Other stakeholders** — Anyone not covered above
+        # ── My Role ──────────────────────────────────────────────────
+        st.header("My Role")
 
-👇 Complete this section in the **"Stakeholders"** expander below.
-            """
-        )
-        if st.button("Close", type="primary", use_container_width=True):
+        # Q1: Who's filling out this wizard?
+        st.subheader("Who's filling out this wizard?")
+        role_opts = [
+            SENTINEL_SELECT,
+            "I'm a network engineer.",
+            "I'm a security engineer.",
+            "I'm a software developer.",
+            "I manage technical projects or teams.",
+            "Other (fill in)",
+        ]
+        _cur_who = st.session_state.get("my_role_who", SENTINEL_SELECT)
+        _idx_who = role_opts.index(_cur_who) if _cur_who in role_opts else 0
+        role_choice = st.radio("Select one", role_opts, index=_idx_who, key="dlg_my_role_who")
+        if role_choice == "Other (fill in)":
+            st.text_input("Please describe", key="dlg_my_role_who_other",
+                          value=st.session_state.get("my_role_who_other", ""))
+
+        # Q2: Technical skills
+        st.subheader("What best describes your technical skills?")
+        skill_opts = [
+            SENTINEL_SELECT,
+            "I have some scripting skills and basic software development experience.",
+            "I am an advanced software developer.",
+            "I provide techncial management on network and automation projects.",
+            "Other (fill in)",
+        ]
+        _cur_sk = st.session_state.get("my_role_skills", SENTINEL_SELECT)
+        _idx_sk = skill_opts.index(_cur_sk) if _cur_sk in skill_opts else 0
+        skill_choice = st.radio("Select one", skill_opts, index=_idx_sk, key="dlg_my_role_skills")
+        if skill_choice == "Other (fill in)":
+            st.text_input("Please describe", key="dlg_my_role_skills_other",
+                          value=st.session_state.get("my_role_skills_other", ""))
+
+        # Q3: Who will develop?
+        st.subheader("Who will actually develop the network automation?")
+        dev_opts = [
+            SENTINEL_SELECT,
+            "I'll do it myself.",
+            "My in-house team and I will build it.",
+            "We will have outside experts build it, but I'll provide technical oversight.",
+            "Other (fill in)",
+        ]
+        _cur_dev = st.session_state.get("my_role_dev", SENTINEL_SELECT)
+        _idx_dev = dev_opts.index(_cur_dev) if _cur_dev in dev_opts else 0
+        dev_choice = st.radio("Select one", dev_opts, index=_idx_dev, key="dlg_my_role_dev")
+        if dev_choice == "Other (fill in)":
+            st.text_input("Please describe", key="dlg_my_role_dev_other",
+                          value=st.session_state.get("my_role_dev_other", ""))
+
+        # ── Stakeholders ─────────────────────────────────────────────
+        st.markdown("---")
+        st.header("Stakeholders")
+
+        catalog = _load_stakeholders_catalog()
+        existing_choices = st.session_state.get("stakeholders_choices", {})
+        stakeholder_help = {
+            "Technical Stakeholders": "Select which engineering or operations teams are responsible for building, operating, or securing the systems that this automation will affect.",
+            "User and Customer Stakeholders": "Select which internal users or external customers will rely on the outcomes of this automation in their day-to-day work.",
+            "Governance and Risk Stakeholders": "Select which governance, security, or risk functions must review, approve, or oversee this automation effort.",
+            "Business and Leadership Stakeholders": "Select which business owners, executives, or project leaders are sponsoring, funding, or directing this automation effort.",
+            "External/Vendor/Partner Stakeholders": "Select which external vendors, consulting partners, or regulatory bodies are materially involved in delivering, integrating, or approving this automation.",
+        }
+        _dlg_cat_keys = []  # track generated keys for submit sync
+        for cat, opts in (catalog or {}).items():
+            if not isinstance(cat, str) or not isinstance(opts, list):
+                continue
+            st.subheader(cat)
+            dlg_key = f"dlg_stakeholders_choice_{_sanitize_title(cat)}"
+            _dlg_cat_keys.append((cat, dlg_key, _sanitize_title(cat)))
+            select_opts = [SENTINEL_SELECT] + [str(o) for o in opts if str(o).strip()]
+            cur_val = existing_choices.get(cat, "") or SENTINEL_SELECT
+            if cur_val == "":
+                cur_val = SENTINEL_SELECT
+            idx = select_opts.index(cur_val) if cur_val in select_opts else 0
+            st.selectbox("", options=select_opts, index=idx, key=dlg_key,
+                         help=stakeholder_help.get(cat, ""))
+
+        st.subheader("Other")
+        st.text_input("Other stakeholder(s)", key="dlg_stakeholders_other_text",
+                      value=st.session_state.get("stakeholders_other_text", ""))
+
+        # ── Submit ───────────────────────────────────────────────────
+        st.divider()
+        if st.button("Submit Stakeholders", type="primary", use_container_width=True):
+            ss = st.session_state
+            # Sync My Role
+            ss["my_role_who"] = ss.get("dlg_my_role_who", SENTINEL_SELECT)
+            ss["my_role_who_other"] = ss.get("dlg_my_role_who_other", "")
+            ss["my_role_skills"] = ss.get("dlg_my_role_skills", SENTINEL_SELECT)
+            ss["my_role_skills_other"] = ss.get("dlg_my_role_skills_other", "")
+            ss["my_role_dev"] = ss.get("dlg_my_role_dev", SENTINEL_SELECT)
+            ss["my_role_dev_other"] = ss.get("dlg_my_role_dev_other", "")
+            # Sync stakeholder categories
+            new_choices = {}
+            for cat, dlg_key, san_key in _dlg_cat_keys:
+                val = ss.get(dlg_key, "") or ""
+                real_key = f"stakeholders_choice_{san_key}"
+                ss[real_key] = val
+                new_choices[cat] = "" if val == SENTINEL_SELECT else val
+            ss["stakeholders_choices"] = new_choices
+            ss["stakeholders_other_text"] = ss.get("dlg_stakeholders_other_text", "")
             st.rerun()
 
     @st.dialog("Dependencies & External Interfaces", width="large")
@@ -2073,7 +2304,8 @@ Plan the **WHEN** and **WHO** of delivery:
                 "collector_norm_", "collection_tool_",
                 "exec_",
                 "dlg_pres_", "dlg_obs_", "dlg_intent_", "dlg_collector_",
-                "dlg_exec_", "dlg_orch_",
+                "dlg_exec_", "dlg_orch_", "dlg_my_role_", "dlg_stakeholders_",
+                "dlg_wizard_", "dlg_no_move_forward",
             )
             _str_keys = (
                 "obs_go_no_go", "obs_add_logic_choice", "obs_add_logic_text",
@@ -2082,6 +2314,7 @@ Plan the **WHEN** and **WHO** of delivery:
                 "pres_user_custom", "pres_interact_custom", "pres_tool_custom",
                 "pres_auth_other_text",
                 "intent_dev_custom", "intent_prov_custom",
+                "stakeholders_other_text",
             )
             for k in list(st.session_state.keys()):
                 if k.startswith(_bool_prefixes):
@@ -2091,6 +2324,13 @@ Plan the **WHEN** and **WHO** of delivery:
                     st.session_state[k] = ""
             # Reset orchestration sentinel
             st.session_state["orch_choice"] = "— Select one —"
+            # Reset My Role and Stakeholders
+            for k in ("my_role_who", "my_role_skills", "my_role_dev"):
+                st.session_state[k] = "— Select one —"
+            for k in ("my_role_who_other", "my_role_skills_other", "my_role_dev_other"):
+                if k in st.session_state:
+                    st.session_state[k] = ""
+            st.session_state["stakeholders_choices"] = {}
             # Full page rerun needed to reset expander widgets too
             st.rerun(scope="app")
 
