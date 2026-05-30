@@ -582,6 +582,23 @@ def get_completion_state() -> dict[str, bool]:
 # ---------------------------------------------------------------------------
 # Completion checks — frame (context / planning) pieces
 # ---------------------------------------------------------------------------
+_DEFAULT_MILESTONE_NAMES = frozenset({
+    "Planning", "Design", "Development & Testing",
+    "Build", "Test", "Pilot", "Production Rollout",
+})
+
+
+def _milestones_edited(milestones) -> bool:
+    """Return True only if milestones differ from the default template."""
+    if not milestones:
+        return False
+    names = {m.get("name", "") for m in milestones}
+    # If the names are exactly the defaults (or a subset), not edited
+    if names <= _DEFAULT_MILESTONE_NAMES:
+        return False
+    return True
+
+
 def check_frame_completion(section_key: str) -> bool:
     """Check if a frame section has meaningful data in session_state."""
     ss = st.session_state
@@ -601,7 +618,8 @@ def check_frame_completion(section_key: str) -> bool:
         ),
         "dependencies": lambda: _any_checked("dep_"),
         "staffing_timeline": lambda: (
-            bool(ss.get("timeline_milestones"))  # has milestone rows
+            # Milestones count only if user edited them (not just the default template)
+            _milestones_edited(ss.get("timeline_milestones"))
             or (ss.get("timeline_staff_count") or 0) > 0
             or (ss.get("timeline_external_staff_count") or 0) > 0
             or bool(ss.get("timeline_staffing_plan", "").strip())

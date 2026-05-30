@@ -314,7 +314,21 @@ class TestCheckFrameCompletion:
         self._mock_session_state({"timeline_start_date": datetime.date.today()})
         assert check_frame_completion("staffing_timeline") is False
 
-    def test_staffing_complete_with_milestones(self):
+    def test_staffing_incomplete_with_default_milestones(self):
+        """Default template milestones should NOT count as complete."""
+        self._mock_session_state({
+            "timeline_milestones": [
+                {"name": "Planning", "duration": 5, "notes": ""},
+                {"name": "Design", "duration": 10, "notes": ""},
+                {"name": "Build", "duration": 10, "notes": ""},
+                {"name": "Test", "duration": 5, "notes": ""},
+                {"name": "Pilot", "duration": 5, "notes": ""},
+                {"name": "Production Rollout", "duration": 10, "notes": ""},
+            ]
+        })
+        assert check_frame_completion("staffing_timeline") is False
+
+    def test_staffing_complete_with_custom_milestones(self):
         self._mock_session_state({
             "timeline_milestones": [{"name": "Phase 1", "duration": 10}]
         })

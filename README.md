@@ -26,9 +26,9 @@ With this input, the App will generate a consolidated report and a bundled ZIP c
 
 ## Preview the Solution Wizard on Streamlit App 
 
-Quickly try the Streamlit hosted app [here](https://naf-naf-wizard.streamlit.app/) to see if it is worth installing!
+Quickly try the Streamlit hosted app [here](https://naf-framework-solution-wizard.streamlit.app/) to see if it is worth installing!
 
-<a href="https://naf-naf-wizard.streamlit.app/"><img src="https://streamlit.io/images/brand/streamlit-mark-color.svg" alt="Open in Streamlit" width="80" /></a>
+<a href="https://naf-framework-solution-wizard.streamlit.app/"><img src="https://streamlit.io/images/brand/streamlit-mark-color.svg" alt="Open in Streamlit" width="80" /></a>
 
 ---
 ## Features
