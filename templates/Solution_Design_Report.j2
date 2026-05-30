@@ -1,0 +1,335 @@
+{# Solution_Design_Report.j2 #}
+![NAF Icon](images/naf_icon.png)
+
+***NAF Network Automation Framework Solution Design Document***
+
+Generated: {{ generated_timestamp }}
+
+## Overview of Automation Initiative
+# {{ initiative["title"] or '' }}
+---
+Author: 
+{% if initiative["author"] and initiative["author"]|trim != "" -%}
+{{ initiative["author"] }}
+{% else -%}
+Author information not provided.
+{% endif %}
+
+## Scope
+{{ initiative["description"] or '' }}
+## Category
+{% if initiative["category"] and initiative["category"]|trim != "" -%}
+{{ initiative["category"] or '' }}
+{% else -%}
+Category input was not provided.
+{% endif %}
+## Problem Statement
+{% if initiative["problem_statement"] and initiative["problem_statement"]|trim != "" -%}
+{{ initiative["problem_statement"] or '' }}
+{% else -%}
+Problem statement input was not provided.
+{% endif %}
+
+## Out of scope
+{{ initiative["out_of_scope"] or '' }}
+{% if initiative["expected_use"] -%}
+
+## Expected use
+{{ initiative["expected_use"] or '' }}
+{% endif -%}
+## Error Conditions
+{% if initiative["error_conditions"] and initiative["error_conditions"]|trim != "" -%}
+{{ initiative["error_conditions"] or '' }}
+{% else -%}
+Error conditions input was not provided.
+{% endif %}
+## Assumptions
+{% if initiative["assumptions"] and initiative["assumptions"]|trim != "" -%}
+{{ initiative["assumptions"] or '' }}
+{% else -%}
+Assumptions input was not provided.
+{% endif %}
+## Deployment Strategy
+{% if initiative["deployment_strategy"] and initiative["deployment_strategy"]|trim != "" -%}
+{{ initiative["deployment_strategy"] or '' }}
+{% else -%}
+Deployment strategy input was not provided.
+{% endif %}
+## Deployment Strategy Description
+{% if initiative["deployment_strategy_description"] and initiative["deployment_strategy_description"]|trim != "" -%}
+{{ initiative["deployment_strategy_description"] or '' }}
+{% else -%}
+Deployment strategy description input was not provided.
+{% endif %}
+{% set _reasons = initiative["no_move_forward_reasons"] if 'no_move_forward_reasons' in initiative else [] %}
+{% set _no_move = (initiative["no_move_forward"] if 'no_move_forward' in initiative else '')|trim %}
+{% if _no_move or (_reasons and _reasons|length > 0) -%}
+
+## If not pursued
+{% if _reasons and _reasons|length > 0 -%}
+{% for r in _reasons -%}
+- {{ r }}
+{% endfor -%}
+{% endif %}
+{% if _no_move %}
+
+### Additional risks in not moving forward
+{{ _no_move }}
+{% endif %}
+{% endif -%}
+
+## My Role
+- Who: {{ my_role["who"] or '' }}
+- Skills: {{ my_role["skills"] or '' }}
+- Developer: {{ my_role["developer"] or '' }}
+
+## Stakeholders
+{% set stakeholder_choices = stakeholders["choices"] if stakeholders and stakeholders["choices"] else {} %}
+{% set stakeholder_other = stakeholders["other"] if stakeholders and stakeholders["other"] else "" %}
+{% if stakeholder_choices or stakeholder_other -%}
+{% for category, choice in stakeholder_choices.items() -%}
+{% if choice -%}
+- **{{ category }}**: {{ choice }}
+{% endif %}
+{% endfor %}
+{% if stakeholder_other -%}
+- **Other**: {{ stakeholder_other }}
+{% endif %}
+{% else -%}
+No stakeholder information provided
+{% endif %}
+
+---
+# Framework Elements
+
+## Presentation
+{% if presentation["selections"] -%}
+{% set users = (presentation["selections"]["users"] or []) %}
+{% set interactions = (presentation["selections"]["interactions"] or []) %}
+{% set tools = (presentation["selections"]["tools"] or []) %}
+{% set auth = (presentation["selections"]["auth"] or []) %}
+{% if users or interactions or tools or auth -%}
+- Selected user types: {{ users|join(', ') }}
+- Interaction modes: {{ interactions|join(', ') }}
+- Presentation tools: {{ tools|join(', ') }}
+- Authentication mechanisms: {{ auth|join(', ') }}
+{% else -%}
+No presentation information provided
+{% endif %}
+{% else -%}
+{% set users = presentation["users"] or '' %}
+{% set interactions = presentation["interaction"] or '' %}
+{% set tools = presentation["tools"] or '' %}
+{% set auth = presentation["auth"] or '' %}
+{% if users or interactions or tools or auth -%}
+- {{ users }}
+- {{ interactions }}
+- {{ tools }}
+- {{ auth }}
+{% else -%}
+No presentation information provided
+{% endif %}
+{% endif %}
+
+## Intent
+{% if intent["selections"] -%}
+{% set development = (intent["selections"]["development"] or []) %}
+{% set provided = (intent["selections"]["provided"] or []) %}
+{% if development or provided -%}
+- Intent development format(s): {{ development|join(', ') }}
+- Intent delivery format(s): {{ provided|join(', ') }}
+{% else -%}
+No intent information provided
+{% endif %}
+{% else -%}
+{% set development = intent["development"] or '' %}
+{% set provided = intent["provided"] or '' %}
+{% if development or provided -%}
+- {{ development }}
+- {{ provided }}
+{% else -%}
+No intent information provided
+{% endif %}
+{% endif %}
+
+## Observability
+{% if observability["selections"] -%}
+{% set methods = (observability["selections"]["methods"] or []) %}
+{% set go_no_go_text = observability["selections"]["go_no_go_text"] or '' %}
+{% set additional_logic_enabled = observability["selections"]["additional_logic_enabled"] %}
+{% set additional_logic_text = observability["selections"]["additional_logic_text"] or '' if additional_logic_enabled else '' %}
+{% set tools = (observability["selections"]["tools"] or []) %}
+{% if methods or go_no_go_text or additional_logic_text or tools -%}
+{% if methods -%}
+- Observability method(s): {{ methods|join(', ') }}
+{% endif %}
+{% if go_no_go_text -%}
+- Go/No-Go text: {{ go_no_go_text }}
+{% endif %}
+{% if additional_logic_enabled and additional_logic_text -%}
+- Additional logic details: {{ additional_logic_text }}
+{% endif %}
+{% if tools -%}
+- Observability tool(s): {{ tools|join(', ') }}
+{% endif %}
+{% else -%}
+No observability information provided
+{% endif %}
+{% else -%}
+{% set methods = observability["methods"] or '' %}
+{% set go_no_go = observability["go_no_go"] or '' %}
+{% set additional_logic = observability["additional_logic"] or '' %}
+{% set tools = observability["tools"] or '' %}
+{% if methods or go_no_go or additional_logic or tools -%}
+- {{ methods }}
+{% if go_no_go -%}
+- {{ go_no_go }}
+{% endif %}
+{% if additional_logic -%}
+- Additional gating logic: {{ additional_logic }}
+{% endif %}
+- {{ tools }}
+{% else -%}
+No observability information provided
+{% endif %}
+{% endif %}
+
+## Orchestration
+{% set summary = orchestration["summary"] or '' %}
+{% set sel = orchestration["selections"] if orchestration["selections"] else {} %}
+{% set choice = sel["choice"] if sel and ('choice' in sel) and sel["choice"] else 'No' %}
+{% set details = sel["details"] if sel and ('details' in sel) and sel["details"] else '' %}
+{% if summary or choice != 'No' or details -%}
+{% if summary -%}
+{{ summary }}
+{% endif %}
+- Orchestration used: {{ choice }}
+{% if details -%}
+- Orchestration details: {{ details }}
+{% endif %}
+{% else -%}
+No orchestration information provided
+{% endif %}
+
+## Collector
+{% if collector["selections"] -%}
+{% set methods = (collector["selections"]["methods"] or []) %}
+{% set auth = (collector["selections"]["auth"] or []) %}
+{% set handling = (collector["selections"]["handling"] or []) %}
+{% set normalization = (collector["selections"]["normalization"] or []) %}
+{% set devices = collector["selections"]["devices"] or '' %}
+{% set metrics_per_sec = collector["selections"]["metrics_per_sec"] or '' %}
+{% set cadence = collector["selections"]["cadence"] or '' %}
+{% set tools = (collector["selections"]["tools"] or []) %}
+{% if methods or auth or handling or normalization or devices or metrics_per_sec or cadence or tools -%}
+{% if methods -%}
+- Collection method(s): {{ methods|join(', ') }}
+{% endif %}
+{% if auth -%}
+- Authentication mechanism(s): {{ auth|join(', ') }}
+{% endif %}
+{% if handling -%}
+- Traffic handling: {{ handling|join(', ') }}
+{% endif %}
+{% if normalization -%}
+- Normalization: {{ normalization|join(', ') }}
+{% endif %}
+{% if devices -%}
+- Target devices: {{ devices }}
+{% endif %}
+{% if metrics_per_sec -%}
+- Metrics per second: {{ metrics_per_sec }}
+{% endif %}
+{% if cadence -%}
+- Collection cadence: {{ cadence }}
+{% endif %}
+{% if tools -%}
+- Collection tool(s): {{ tools|join(', ') }}
+{% endif %}
+{% else -%}
+No collector information provided
+{% endif %}
+{% else -%}
+{% set methods = collector["methods"] or '' %}
+{% set auth = collector["auth"] or '' %}
+{% set handling = collector["handling"] or '' %}
+{% set scale = collector["scale"] or '' %}
+{% set tools = collector["tools"] or '' %}
+{% if methods or auth or handling or scale or tools -%}
+- {{ methods }}
+- {{ auth }}
+{% if handling -%}
+- {{ handling }}
+{% endif %}
+- {{ scale }}
+- {{ tools }}
+{% else -%}
+No collector information provided
+{% endif %}
+{% endif %}
+
+## Executor
+{% if executor["selections"] -%}
+{% set methods = (executor["selections"]["methods"] or []) %}
+{% if methods -%}
+- Execution method(s): {{ methods|join(', ') }}
+{% else -%}
+No executor information provided
+{% endif %}
+{% else -%}
+{% set methods = executor["methods"] or '' %}
+{% if methods -%}
+- {{ methods }}
+{% else -%}
+No executor information provided
+{% endif %}
+{% endif %}
+
+# Dependencies & External Interfaces
+---
+{% if dependencies and dependencies|length > 0 -%}
+{% for dep in dependencies -%}
+- {{ dep["name"] }}{% if dep["details"] %}: {{ dep["details"] }}{% endif %}
+{% endfor -%}
+{% else -%}
+No dependencies defined
+{% endif %}
+
+# Staffing, Timeline, & Milestones
+---
+{% set staff_count = timeline["staff_count"] or '' %}
+{% set start_date = timeline["start_date"] or '' %}
+{% set total_business_days = timeline["total_business_days"] or '' %}
+{% set projected_completion = timeline["projected_completion"] or '' %}
+{% if staff_count or start_date or total_business_days or projected_completion -%}
+- Staff {{ staff_count }} • Start {{ start_date }} • Total {{ total_business_days }} bd • Completion {{ projected_completion }}
+{% else -%}
+No timeline information provided
+{% endif %}
+{% if timeline["items"] and timeline["items"]|length > 0 -%}
+{% for item in timeline["items"] -%}
+- {{ item["name"] }}: {{ item["start"] }} → {{ item["end"] }} ({{ item["duration_bd"] }} bd){% if item["notes"] %} — {{ item["notes"] }}{% endif %}
+{% endfor -%}
+{% else -%}
+No detailed milestones defined
+{% endif %}
+
+### Gantt Chart
+{% if gantt_image_path -%}
+![Project Gantt Chart]({{ gantt_image_path }})
+{% else -%}
+Gantt chart image not available
+{% endif %}
+
+## Staffing Plan
+{% if timeline["staffing_plan_md"] -%}
+{{ timeline["staffing_plan_md"] }}
+{% elif staffing_plan -%}
+{{ staffing_plan }}
+{% else -%}
+No detailed staffing plan provided
+{% endif %}
+
+---
+
+NAF NAF Solution Wizard provided by EIA https://eianow.com
