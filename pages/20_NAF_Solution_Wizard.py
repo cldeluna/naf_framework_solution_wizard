@@ -63,6 +63,10 @@ join_human = utils.join_human
 md_line = utils.md_line
 is_meaningful = utils.is_meaningful
 _join = utils.join_human
+import sys as _sys
+_project_root = str(Path(__file__).resolve().parent.parent)
+if _project_root not in _sys.path:
+    _sys.path.insert(0, _project_root)
 from payload_builder import build_payload_from_state
 
 
