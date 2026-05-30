@@ -453,91 +453,8 @@ def solution_wizard_main():
 
     # JSON upload/reset controls now live in the main page body
     with st.expander("Load Saved Solution Wizard (JSON)", expanded=False):
-        # Sidebar import/reset controls.
-        #
-        # - Reset to defaults: clears wizard-related session state and restores defaults.
-        # - Upload naf_report_*.json: allows Merge/Overwrite to rehydrate a previous session.
-        # - Filename must match naf_report_*.json; otherwise show guidance.
-
-        # Reset to defaults
-        if st.button(
-            "Reset to defaults",
-            use_container_width=True,
-            key="wizard_reset_defaults_btn",
-        ):
-            # Set all boolean-prefixed keys to False (don't delete — widgets need keys to exist)
-            _bool_prefixes = (
-                "pres_user_", "pres_tool_", "pres_interact_", "pres_auth_",
-                "obs_state_", "obs_tool_",
-                "intent_dev_", "intent_prov_",
-                "collector_method_", "collector_auth_", "collector_handle_",
-                "collector_norm_", "collection_tool_",
-                "exec_",
-                "dep_",
-                # Dialog-prefixed keys
-                "dlg_pres_", "dlg_obs_", "dlg_intent_", "dlg_collector_",
-                "dlg_exec_", "dlg_orch_", "dlg_my_role_", "dlg_stakeholders_",
-                "dlg_wizard_", "dlg_no_move_forward", "dlg_dep_",
-                "dlg_timeline_", "dlg_tl_",
-            )
-            for k in list(st.session_state.keys()):
-                if k.startswith(_bool_prefixes):
-                    st.session_state[k] = False
-            # Clear string keys to empty
-            _str_keys = (
-                "obs_go_no_go", "obs_add_logic_choice", "obs_add_logic_text",
-                "orch_details_text",
-                "collector_devices", "collector_metrics", "collector_cadence",
-                "pres_user_custom", "pres_interact_custom", "pres_tool_custom",
-                "pres_auth_other_text",
-                "intent_dev_custom", "intent_prov_custom",
-                "stakeholders_other_text",
-                "no_move_forward",
-                "my_role_who_other", "my_role_skills_other", "my_role_dev_other",
-            )
-            for k in _str_keys:
-                if k in st.session_state:
-                    st.session_state[k] = ""
-            # Reset orchestration and role sentinels
-            st.session_state["orch_choice"] = "— Select one —"
-            for k in ("my_role_who", "my_role_skills", "my_role_dev"):
-                st.session_state[k] = "— Select one —"
-            # Reset stakeholders
-            st.session_state["stakeholders_choices"] = {}
-            # Reset puzzle demo tracking
-            from puzzle_progress import PUZZLE_SECTIONS
-            st.session_state["_demo_completed"] = {key: False for key in PUZZLE_SECTIONS}
-            # Clean up dialog working copies
-            st.session_state.pop("_dlg_timeline_milestones", None)
-            # Reset initiative fields to defaults
-            st.session_state["_wizard_automation_title"] = "My new network automation project"
-            st.session_state["_wizard_automation_description"] = "Here is a short description of my my new network automation project"
-            st.session_state["_wizard_problem_statement"] = ""
-            st.session_state["_wizard_expected_use"] = "This automation will be used whenever this task needs to be executed."
-            st.session_state["_wizard_error_conditions"] = ""
-            st.session_state["_wizard_assumptions"] = ""
-            st.session_state["_wizard_deployment_strategy"] = ""
-            st.session_state["_wizard_deployment_strategy_other"] = ""
-            st.session_state["_wizard_deployment_strategy_description"] = ""
-            st.session_state["_wizard_out_of_scope"] = ""
-            st.session_state["_wizard_category"] = ""
-            st.session_state["_wizard_category_other"] = ""
-            st.session_state["no_move_forward_reasons"] = []
-            # Reset timeline/staffing
-            st.session_state.pop("timeline_build_buy", None)
-            st.session_state.pop("timeline_staff_count", None)
-            st.session_state.pop("timeline_external_staff_count", None)
-            st.session_state.pop("timeline_staffing_plan", None)
-            st.session_state.pop("timeline_holiday_region", None)
-            st.session_state.pop("timeline_start_date", None)
-            st.session_state.pop("timeline_milestones", None)
-            # Minimal sane dependency defaults
-            st.session_state["dep_network_infra"] = True
-            st.session_state["dep_revision_control"] = True
-            st.session_state["dep_revision_control_details"] = "GitHub"
-            st.rerun()
-
-        # Sample JSON download removed per request
+        # Upload naf_report_*.json: allows Merge/Overwrite to rehydrate a previous session.
+        # Filename must match naf_report_*.json; otherwise show guidance.
 
         uploaded = st.file_uploader(
             "Upload naf_report_*.json", type=["json"], key="wizard_upload_json"
@@ -2455,53 +2372,6 @@ def solution_wizard_main():
                 ):
                     _DIALOGS[key]()
 
-        # Reset puzzle — clears both demo tracking and real section data
-        if st.button("\U0001f504 Reset Puzzle", use_container_width=True):
-            st.session_state["_demo_completed"] = {key: False for key in PUZZLE_SECTIONS}
-            # Clear real session_state keys that get_completion_state() checks
-            # Set booleans to False and strings to "" (don't delete — widgets
-            # need the keys to exist for the next rerun)
-            _bool_prefixes = (
-                "pres_user_", "pres_tool_", "pres_interact_", "pres_auth_",
-                "obs_state_", "obs_tool_",
-                "intent_dev_", "intent_prov_",
-                "collector_method_", "collector_auth_", "collector_handle_",
-                "collector_norm_", "collection_tool_",
-                "exec_",
-                "dlg_pres_", "dlg_obs_", "dlg_intent_", "dlg_collector_",
-                "dlg_exec_", "dlg_orch_", "dlg_my_role_", "dlg_stakeholders_",
-                "dlg_wizard_", "dlg_no_move_forward", "dlg_dep_",
-                "dlg_timeline_", "dlg_tl_",
-            )
-            _str_keys = (
-                "obs_go_no_go", "obs_add_logic_choice", "obs_add_logic_text",
-                "orch_details_text",
-                "collector_devices", "collector_metrics", "collector_cadence",
-                "pres_user_custom", "pres_interact_custom", "pres_tool_custom",
-                "pres_auth_other_text",
-                "intent_dev_custom", "intent_prov_custom",
-                "stakeholders_other_text",
-            )
-            for k in list(st.session_state.keys()):
-                if k.startswith(_bool_prefixes):
-                    st.session_state[k] = False
-            for k in _str_keys:
-                if k in st.session_state:
-                    st.session_state[k] = ""
-            # Reset orchestration sentinel
-            st.session_state["orch_choice"] = "— Select one —"
-            # Reset My Role and Stakeholders
-            for k in ("my_role_who", "my_role_skills", "my_role_dev"):
-                st.session_state[k] = "— Select one —"
-            for k in ("my_role_who_other", "my_role_skills_other", "my_role_dev_other"):
-                if k in st.session_state:
-                    st.session_state[k] = ""
-            st.session_state["stakeholders_choices"] = {}
-            # Clean up dialog working copies
-            st.session_state.pop("_dlg_timeline_milestones", None)
-            # Full page rerun needed to reset expander widgets too
-            st.rerun(scope="app")
-
     _puzzle_fragment()
 
     # ── Project Context & Planning button cards ──────────────────────
@@ -2541,6 +2411,77 @@ def solution_wizard_main():
         with _pln_c2:
             if st.button("📅 Staffing & Timeline", key="btn_staffing", use_container_width=True):
                 _dlg_staffing_timeline()
+
+    # ── Reset All Sections ───────────────────────────────────────────
+    _r1, _r2, _r3 = st.columns([2, 1, 2])
+    with _r2:
+        if st.button("🔄 Reset All Sections", use_container_width=True, key="wizard_reset_defaults_btn"):
+            # Set all boolean-prefixed keys to False
+            _bool_prefixes = (
+                "pres_user_", "pres_tool_", "pres_interact_", "pres_auth_",
+                "obs_state_", "obs_tool_",
+                "intent_dev_", "intent_prov_",
+                "collector_method_", "collector_auth_", "collector_handle_",
+                "collector_norm_", "collection_tool_",
+                "exec_", "dep_",
+                "dlg_pres_", "dlg_obs_", "dlg_intent_", "dlg_collector_",
+                "dlg_exec_", "dlg_orch_", "dlg_my_role_", "dlg_stakeholders_",
+                "dlg_wizard_", "dlg_no_move_forward", "dlg_dep_",
+                "dlg_timeline_", "dlg_tl_",
+            )
+            for k in list(st.session_state.keys()):
+                if k.startswith(_bool_prefixes):
+                    # Detail keys are strings, not booleans
+                    if "_details" in k or k.endswith("_other") or k.endswith("_text") or k.endswith("_custom"):
+                        st.session_state[k] = ""
+                    else:
+                        st.session_state[k] = False
+            # Clear string keys
+            _str_keys = (
+                "obs_go_no_go", "obs_add_logic_choice", "obs_add_logic_text",
+                "orch_details_text",
+                "collector_devices", "collector_metrics", "collector_cadence",
+                "pres_user_custom", "pres_interact_custom", "pres_tool_custom",
+                "pres_auth_other_text",
+                "intent_dev_custom", "intent_prov_custom",
+                "stakeholders_other_text", "no_move_forward",
+                "my_role_who_other", "my_role_skills_other", "my_role_dev_other",
+            )
+            for k in _str_keys:
+                if k in st.session_state:
+                    st.session_state[k] = ""
+            # Reset sentinels
+            st.session_state["orch_choice"] = "— Select one —"
+            for k in ("my_role_who", "my_role_skills", "my_role_dev"):
+                st.session_state[k] = "— Select one —"
+            st.session_state["stakeholders_choices"] = {}
+            # Reset puzzle tracking
+            st.session_state["_demo_completed"] = {key: False for key in PUZZLE_SECTIONS}
+            st.session_state.pop("_dlg_timeline_milestones", None)
+            # Initiative defaults
+            st.session_state["_wizard_automation_title"] = "My new network automation project"
+            st.session_state["_wizard_automation_description"] = "Here is a short description of my my new network automation project"
+            st.session_state["_wizard_problem_statement"] = ""
+            st.session_state["_wizard_expected_use"] = "This automation will be used whenever this task needs to be executed."
+            st.session_state["_wizard_error_conditions"] = ""
+            st.session_state["_wizard_assumptions"] = ""
+            st.session_state["_wizard_deployment_strategy"] = ""
+            st.session_state["_wizard_deployment_strategy_other"] = ""
+            st.session_state["_wizard_deployment_strategy_description"] = ""
+            st.session_state["_wizard_out_of_scope"] = ""
+            st.session_state["_wizard_category"] = ""
+            st.session_state["_wizard_category_other"] = ""
+            st.session_state["no_move_forward_reasons"] = []
+            # Reset timeline/staffing
+            for k in ("timeline_build_buy", "timeline_staff_count", "timeline_external_staff_count",
+                       "timeline_staffing_plan", "timeline_holiday_region", "timeline_start_date",
+                       "timeline_milestones"):
+                st.session_state.pop(k, None)
+            # Minimal sane dependency defaults
+            st.session_state["dep_network_infra"] = True
+            st.session_state["dep_revision_control"] = True
+            st.session_state["dep_revision_control_details"] = "GitHub"
+            st.rerun()
 
     st.divider()
 
