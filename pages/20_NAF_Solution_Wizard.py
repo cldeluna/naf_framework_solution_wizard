@@ -1935,6 +1935,81 @@ def solution_wizard_main():
             ss["_demo_completed"]["executor"] = True
             st.rerun()
 
+    # ── Project Context & Planning dialogs ──────────────────────────
+
+    @st.dialog("Problem Statement & Description", width="large")
+    def _dlg_problem_statement():
+        st.markdown(
+            """
+Define the **WHY** of your automation project:
+
+- **Title & description** — Name and scope your initiative
+- **Category** — Classify the type of automation
+- **Problem statement** — What problem does this solve?
+- **Expected use / triggers** — When and how will it run?
+- **Error conditions & assumptions**
+- **Deployment strategy** — How will it be rolled out?
+- **Risk of not automating** — Business justification
+
+👇 Complete this section in the **"Automation Project Problem Statement & Description"** expander below.
+            """
+        )
+        if st.button("Close", type="primary", use_container_width=True):
+            st.rerun()
+
+    @st.dialog("Stakeholders", width="large")
+    def _dlg_stakeholders():
+        st.markdown(
+            """
+Define the **WHO** of your automation project:
+
+- **My Role** — Who is filling out the wizard, your technical skills, who will develop the automation
+- **Stakeholder categories** — Technical, User/Customer, Governance/Risk, Business/Leadership, External/Vendor
+- **Other stakeholders** — Anyone not covered above
+
+👇 Complete this section in the **"Stakeholders"** expander below.
+            """
+        )
+        if st.button("Close", type="primary", use_container_width=True):
+            st.rerun()
+
+    @st.dialog("Dependencies & External Interfaces", width="large")
+    def _dlg_dependencies():
+        st.markdown(
+            """
+Identify external systems this automation will interact with:
+
+- Network Infrastructure, Controllers, Revision Control
+- ITSM/Change Management, Authentication, IPAM
+- Inventory/CMDB, Design/Intent, Observability
+- Vendor Management tools
+
+For each dependency you can note specifics (product names, API versions, etc.).
+
+👇 Complete this section in the **"Dependencies & External Interfaces"** expander below.
+            """
+        )
+        if st.button("Close", type="primary", use_container_width=True):
+            st.rerun()
+
+    @st.dialog("Staffing, Timeline, & Milestones", width="large")
+    def _dlg_staffing_timeline():
+        st.markdown(
+            """
+Plan the **WHEN** and **WHO** of delivery:
+
+- **Build / Buy / Hybrid** approach
+- **Staffing** — Direct staff and professional services counts
+- **Holiday calendar** — Adjust for regional holidays
+- **Milestones** — Add/edit project phases with durations in business days
+- **Gantt chart** — Visual timeline auto-generated from milestones
+
+👇 Complete this section in the **"Staffing, Timeline, & Milestones"** expander below.
+            """
+        )
+        if st.button("Close", type="primary", use_container_width=True):
+            st.rerun()
+
     _DIALOGS = {
         "presentation": _dlg_presentation,
         "observability": _dlg_observability,
@@ -2020,6 +2095,42 @@ def solution_wizard_main():
             st.rerun(scope="app")
 
     _puzzle_fragment()
+
+    # ── Project Context & Planning button cards ──────────────────────
+    st.markdown("")  # spacer
+    col_ctx, col_plan = st.columns(2)
+
+    with col_ctx:
+        st.markdown(
+            """<div style="border:1px solid #444; border-radius:8px; padding:12px 16px 8px;">
+            <span style="font-size:0.75em; font-weight:600; color:#4CAF50;">● RECOMMENDED</span>
+            <h4 style="margin:4px 0 8px;">Project Context</h4>
+            </div>""",
+            unsafe_allow_html=True,
+        )
+        _ctx_c1, _ctx_c2 = st.columns(2)
+        with _ctx_c1:
+            if st.button("📋 Problem Statement", key="btn_problem_stmt", use_container_width=True):
+                _dlg_problem_statement()
+        with _ctx_c2:
+            if st.button("👥 Stakeholders", key="btn_stakeholders", use_container_width=True):
+                _dlg_stakeholders()
+
+    with col_plan:
+        st.markdown(
+            """<div style="border:1px solid #444; border-radius:8px; padding:12px 16px 8px;">
+            <span style="font-size:0.75em; font-weight:600; color:#888;">○ OPTIONAL</span>
+            <h4 style="margin:4px 0 8px;">Planning</h4>
+            </div>""",
+            unsafe_allow_html=True,
+        )
+        _pln_c1, _pln_c2 = st.columns(2)
+        with _pln_c1:
+            if st.button("🔗 Dependencies", key="btn_dependencies", use_container_width=True):
+                _dlg_dependencies()
+        with _pln_c2:
+            if st.button("📅 Staffing & Timeline", key="btn_staffing", use_container_width=True):
+                _dlg_staffing_timeline()
 
     st.divider()
 
