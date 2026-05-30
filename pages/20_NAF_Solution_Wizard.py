@@ -2362,12 +2362,20 @@ def solution_wizard_main():
         render_puzzle_progress(_merged_state, frame_completed=_merged_frame, clickable=True)
 
         # Section buttons (alternative to clicking puzzle pieces)
+        _SECTION_ICONS = {
+            "presentation":  "🖥️",
+            "observability": "🔍",
+            "orchestration": "🔀",
+            "intent":        "💎",
+            "collector":     "📥",
+            "executor":      "⚡",
+        }
         st.markdown("#### Click a puzzle piece or button to fill out its form:")
         _btn_row1 = st.columns(3)
         for i, key in enumerate(["presentation", "observability", "orchestration"]):
             with _btn_row1[i]:
                 _done = _merged_state[key]
-                _icon = "✅" if _done else "\U0001f9e9"
+                _icon = "✅" if _done else _SECTION_ICONS[key]
                 if st.button(
                     f"{_icon} {PUZZLE_SECTIONS[key]['label']}",
                     key=f"open_{key}",
@@ -2379,7 +2387,7 @@ def solution_wizard_main():
         for i, key in enumerate(["intent", "collector", "executor"]):
             with _btn_row2[i]:
                 _done = _merged_state[key]
-                _icon = "✅" if _done else "\U0001f9e9"
+                _icon = "✅" if _done else _SECTION_ICONS[key]
                 if st.button(
                     f"{_icon} {PUZZLE_SECTIONS[key]['label']}",
                     key=f"open_{key}",
