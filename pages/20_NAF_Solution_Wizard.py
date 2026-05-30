@@ -1984,10 +1984,40 @@ def solution_wizard_main():
                 ):
                     _DIALOGS[key]()
 
-        # Reset puzzle (demo tracking only — does not clear expander data)
+        # Reset puzzle — clears both demo tracking and real section data
         if st.button("\U0001f504 Reset Puzzle", use_container_width=True):
             st.session_state["_demo_completed"] = {key: False for key in PUZZLE_SECTIONS}
-            st.rerun()
+            # Clear real session_state keys that get_completion_state() checks
+            # Set booleans to False and strings to "" (don't delete — widgets
+            # need the keys to exist for the next rerun)
+            _bool_prefixes = (
+                "pres_user_", "pres_tool_", "pres_interact_", "pres_auth_",
+                "obs_state_", "obs_tool_",
+                "intent_dev_", "intent_prov_",
+                "collector_method_", "collector_auth_", "collector_handle_",
+                "collector_norm_", "collection_tool_",
+                "exec_",
+                "dlg_pres_", "dlg_obs_", "dlg_intent_", "dlg_collector_",
+                "dlg_exec_", "dlg_orch_",
+            )
+            _str_keys = (
+                "obs_go_no_go", "obs_add_logic_choice", "obs_add_logic_text",
+                "orch_details_text",
+                "collector_devices", "collector_metrics", "collector_cadence",
+                "pres_user_custom", "pres_interact_custom", "pres_tool_custom",
+                "pres_auth_other_text",
+                "intent_dev_custom", "intent_prov_custom",
+            )
+            for k in list(st.session_state.keys()):
+                if k.startswith(_bool_prefixes):
+                    st.session_state[k] = False
+            for k in _str_keys:
+                if k in st.session_state:
+                    st.session_state[k] = ""
+            # Reset orchestration sentinel
+            st.session_state["orch_choice"] = "— Select one —"
+            # Full page rerun needed to reset expander widgets too
+            st.rerun(scope="app")
 
     _puzzle_fragment()
 

@@ -422,8 +422,9 @@ wheels = [
 [[package]]
 name = "naf-framework-solution-wizard"
 version = "0.1.0"
-source = { editable = "." }
+source = { virtual = "." }
 dependencies = [
+    { name = "jinja2" },
     { name = "kaleido" },
     { name = "pandas" },
     { name = "plotly" },
@@ -439,6 +440,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "jinja2", specifier = ">=3.1.6" },
     { name = "kaleido", specifier = ">=1.2.0" },
     { name = "pandas", specifier = ">=2.3.3" },
     { name = "plotly", specifier = ">=6.5.0" },
