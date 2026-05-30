@@ -2206,21 +2206,55 @@ def solution_wizard_main():
 
     @st.dialog("Dependencies & External Interfaces", width="large")
     def _dlg_dependencies():
-        st.markdown(
-            """
-Identify external systems this automation will interact with:
+        ss = st.session_state
 
-- Network Infrastructure, Controllers, Revision Control
-- ITSM/Change Management, Authentication, IPAM
-- Inventory/CMDB, Design/Intent, Observability
-- Vendor Management tools
-
-For each dependency you can note specifics (product names, API versions, etc.).
-
-👇 Complete this section in the **"Dependencies & External Interfaces"** expander below.
-            """
+        st.caption(
+            "Select the external systems this automation will interact with and add details where applicable."
         )
-        if st.button("Close", type="primary", use_container_width=True):
+
+        _dep_defs = [
+            {"key": "network_infra", "label": "Network Infrastructure", "default": True, "details": False,
+             "help": "The automation will act on some or all of the organization's network infrastructure (switches, appliances, routers, etc.)."},
+            {"key": "network_controllers", "label": "Network Controllers", "default": False, "details": True},
+            {"key": "revision_control", "label": "Revision Control system", "default": True, "details": True,
+             "help": "e.g. GitHub, GitLab, Bitbucket"},
+            {"key": "itsm", "label": "ITSM/Change Management System", "default": False, "details": True},
+            {"key": "authn", "label": "Authentication System", "default": False, "details": True},
+            {"key": "ipams", "label": "IPAMS Systems", "default": False, "details": True},
+            {"key": "inventory", "label": "Inventory Systems", "default": False, "details": True,
+             "help": "Source of truth/CMDB/inventory (e.g., NetBox, InfraHub, ServiceNow CMDB). What data do you read/write?"},
+            {"key": "design_intent", "label": "Design Data/Intent Systems", "default": False, "details": True,
+             "help": "Systems holding golden intent or design models (InfraHub, Custom DB)."},
+            {"key": "observability", "label": "Observability System", "default": False, "details": True,
+             "help": "Telemetry/monitoring/logs/traces (e.g., SuzieQ, Prometheus)."},
+            {"key": "vendor_mgmt", "label": "Vendor Tool/Management System", "default": False, "details": True,
+             "help": "(e.g., Cisco DNAC, Wireless Controllers, Miraki, Arista CVP, Aruba Central, Juniper Apstra)."},
+        ]
+
+        for d in _dep_defs:
+            dlg_ck = f"dlg_dep_{d['key']}"
+            checked = st.checkbox(
+                d["label"], key=dlg_ck,
+                value=ss.get(f"dep_{d['key']}", d.get("default", False)),
+                help=d.get("help"),
+            )
+            if checked and d.get("details"):
+                default_detail = ""
+                if d["key"] == "revision_control":
+                    default_detail = "GitHub"
+                dlg_dk = f"dlg_dep_{d['key']}_details"
+                st.text_input(
+                    f"Details for {d['label']}", key=dlg_dk,
+                    value=ss.get(f"dep_{d['key']}_details", default_detail),
+                )
+
+        # ── Submit ───────────────────────────────────────────────────
+        st.divider()
+        if st.button("Submit Dependencies", type="primary", use_container_width=True):
+            for d in _dep_defs:
+                ss[f"dep_{d['key']}"] = ss.get(f"dlg_dep_{d['key']}", False)
+                if d.get("details"):
+                    ss[f"dep_{d['key']}_details"] = ss.get(f"dlg_dep_{d['key']}_details", "")
             st.rerun()
 
     @st.dialog("Staffing, Timeline, & Milestones", width="large")
@@ -2305,7 +2339,7 @@ Plan the **WHEN** and **WHO** of delivery:
                 "exec_",
                 "dlg_pres_", "dlg_obs_", "dlg_intent_", "dlg_collector_",
                 "dlg_exec_", "dlg_orch_", "dlg_my_role_", "dlg_stakeholders_",
-                "dlg_wizard_", "dlg_no_move_forward",
+                "dlg_wizard_", "dlg_no_move_forward", "dlg_dep_",
             )
             _str_keys = (
                 "obs_go_no_go", "obs_add_logic_choice", "obs_add_logic_text",
