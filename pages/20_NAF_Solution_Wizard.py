@@ -2570,6 +2570,7 @@ def solution_wizard_main():
             """<div style="border:1px solid #444; border-radius:8px; padding:12px 16px 8px;">
             <span style="font-size:0.75em; font-weight:600; color:#4CAF50;">● RECOMMENDED</span>
             <h4 style="margin:4px 0 8px;">Project Context</h4>
+            <p style="font-size:0.85em; margin:0 0 4px; opacity:0.8;">Define the problem you're solving, who's involved, and why this automation matters. This context shapes every decision downstream.</p>
             </div>""",
             unsafe_allow_html=True,
         )
@@ -2586,6 +2587,7 @@ def solution_wizard_main():
             """<div style="border:1px solid #444; border-radius:8px; padding:12px 16px 8px;">
             <span style="font-size:0.75em; font-weight:600; color:#888;">○ OPTIONAL</span>
             <h4 style="margin:4px 0 8px;">Planning</h4>
+            <p style="font-size:0.85em; margin:0 0 4px; opacity:0.8;">While the framework helps you think about the technical implementation, for a complete project let's now consider external interfaces, staffing, and timelines.</p>
             </div>""",
             unsafe_allow_html=True,
         )
