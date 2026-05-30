@@ -2259,20 +2259,208 @@ def solution_wizard_main():
 
     @st.dialog("Staffing, Timeline, & Milestones", width="large")
     def _dlg_staffing_timeline():
-        st.markdown(
-            """
-Plan the **WHEN** and **WHO** of delivery:
+        ss = st.session_state
 
-- **Build / Buy / Hybrid** approach
-- **Staffing** — Direct staff and professional services counts
-- **Holiday calendar** — Adjust for regional holidays
-- **Milestones** — Add/edit project phases with durations in business days
-- **Gantt chart** — Visual timeline auto-generated from milestones
-
-👇 Complete this section in the **"Staffing, Timeline, & Milestones"** expander below.
-            """
+        st.caption(
+            "Capture a high-level plan with durations in business days. Start date drives scheduled dates."
         )
-        if st.button("Close", type="primary", use_container_width=True):
+        st.info(
+            "Duration should reflect expected staffing. For example, if a step is 10 business days "
+            "of work but two people will work in parallel, you may model it as 5–6 days to allow "
+            "for coordination overhead."
+        )
+
+        # ── Staffing plan ────────────────────────────────────────────
+        st.subheader("Staffing plan")
+
+        _bb_opts = [
+            "Build In-House",
+            "Build with Professional Services or other external resources (Buy)",
+            "Hybrid",
+        ]
+        _cur_bb = ss.get("timeline_build_buy", "Build In-House")
+        _bb_idx = _bb_opts.index(_cur_bb) if _cur_bb in _bb_opts else 0
+        st.radio(
+            "Development approach", options=_bb_opts, index=_bb_idx,
+            key="dlg_timeline_build_buy", horizontal=True,
+            help="Select whether this solution will be built in-house, purchased, or a combination.",
+        )
+
+        _sc1, _sc2, _sc3 = st.columns([1, 1, 2])
+        with _sc1:
+            st.number_input(
+                "Direct staff on project", min_value=0, step=1,
+                value=int(ss.get("timeline_staff_count", 1)),
+                key="dlg_timeline_staff_count",
+                help="Number of direct employees from your team or from another team in your organization.",
+            )
+        with _sc2:
+            st.number_input(
+                "Professional services staff", min_value=0, step=1,
+                value=int(ss.get("timeline_external_staff_count", 0)),
+                key="dlg_timeline_external_staff_count",
+                help="Number of external staff working on project.",
+            )
+        with _sc3:
+            st.text_area(
+                "Staffing plan (markdown supported)", height=120,
+                key="dlg_timeline_staffing_plan",
+                value=str(ss.get("timeline_staffing_plan", "")),
+            )
+
+        # ── Holiday calendar ─────────────────────────────────────────
+        _region_opts = ["None", "United States", "Canada", "United Kingdom", "Germany", "India", "Australia"]
+        _cur_reg = ss.get("timeline_holiday_region", "None")
+        _reg_idx = _region_opts.index(_cur_reg) if _cur_reg in _region_opts else 0
+        dlg_holiday_region = st.selectbox(
+            "Holiday calendar", options=_region_opts, index=_reg_idx,
+            key="dlg_timeline_holiday_region",
+            help="Used to skip public holidays when computing business days.",
+        )
+
+        # ── Start date ───────────────────────────────────────────────
+        _def_start = ss.get("timeline_start_date")
+        dlg_start_date = st.date_input(
+            "Project start date",
+            value=_def_start or datetime.datetime.today().date(),
+            key="dlg_timeline_start_date_input",
+        )
+
+        # ── Milestones ───────────────────────────────────────────────
+        st.subheader("Milestones")
+
+        # Working copy of milestones for the dialog
+        if "_dlg_timeline_milestones" not in ss:
+            default_ms = ss.get("timeline_milestones", [
+                {"name": "Planning", "duration": 5, "notes": ""},
+                {"name": "Design", "duration": 10, "notes": ""},
+                {"name": "Build", "duration": 10, "notes": ""},
+                {"name": "Test", "duration": 5, "notes": ""},
+                {"name": "Pilot", "duration": 5, "notes": ""},
+                {"name": "Production Rollout", "duration": 10, "notes": ""},
+            ])
+            ss["_dlg_timeline_milestones"] = [dict(m) for m in default_ms]
+
+        _mc1, _mc2 = st.columns([1, 1])
+        with _mc1:
+            if st.button("Add milestone row", key="dlg_timeline_add_row"):
+                ss["_dlg_timeline_milestones"].append({"name": "", "duration": 0, "notes": ""})
+                st.rerun()
+        with _mc2:
+            st.caption("Edit milestone name, duration (business days), and notes.")
+
+        _dlg_to_delete = []
+        for idx, row in enumerate(list(ss["_dlg_timeline_milestones"])):
+            rcols = st.columns([3, 2, 5, 1])
+            with rcols[0]:
+                row_name = st.text_input(
+                    "Milestone", value=str(row.get("name", "")),
+                    key=f"dlg_tl_name_{idx}",
+                )
+            with rcols[1]:
+                row_dur = st.number_input(
+                    "Duration (bd)", min_value=0, step=1,
+                    value=int(row.get("duration", 0)),
+                    key=f"dlg_tl_duration_{idx}",
+                )
+            with rcols[2]:
+                row_notes = st.text_input(
+                    "Notes", value=str(row.get("notes", "")),
+                    key=f"dlg_tl_notes_{idx}",
+                )
+            with rcols[3]:
+                if st.checkbox("Del", key=f"dlg_tl_del_{idx}"):
+                    _dlg_to_delete.append(idx)
+            ss["_dlg_timeline_milestones"][idx] = {
+                "name": row_name, "duration": int(row_dur), "notes": row_notes,
+            }
+
+        for i in sorted(_dlg_to_delete, reverse=True):
+            if 0 <= i < len(ss["_dlg_timeline_milestones"]):
+                ss["_dlg_timeline_milestones"].pop(i)
+
+        # ── Schedule preview ─────────────────────────────────────────
+        def _dlg_build_holiday_set(start_year, years_ahead=2):
+            if _hol is None or dlg_holiday_region == "None":
+                return set()
+            years = list(range(start_year, start_year + max(1, years_ahead) + 1))
+            cal = None
+            try:
+                _region_map = {
+                    "United States": _hol.UnitedStates,
+                    "Canada": _hol.Canada,
+                    "United Kingdom": _hol.UnitedKingdom,
+                    "Germany": _hol.Germany,
+                    "India": _hol.India,
+                    "Australia": _hol.Australia,
+                }
+                cls = _region_map.get(dlg_holiday_region)
+                if cls:
+                    cal = cls(years=years)
+            except Exception:
+                cal = None
+            return set(cal.keys()) if cal else set()
+
+        _dlg_schedule = []
+        _dlg_cursor = dlg_start_date
+        _dlg_hol_set = _dlg_build_holiday_set(dlg_start_date.year, years_ahead=3)
+        _dlg_total_bd = 0
+        for row in ss["_dlg_timeline_milestones"]:
+            name = (row.get("name") or "").strip()
+            dur = int(row.get("duration") or 0)
+            notes = row.get("notes") or ""
+            if not name and dur <= 0:
+                continue
+            s = _dlg_cursor
+            e = _add_business_days(s, dur, _dlg_hol_set) if dur > 0 else s
+            _dlg_schedule.append({"name": name or "(Unnamed)", "duration_bd": dur, "start": s, "end": e, "notes": notes})
+            _dlg_cursor = e
+            _dlg_total_bd += max(0, dur)
+
+        if _dlg_schedule:
+            st.markdown("**Timeline summary (business days only)**")
+            st.write(
+                f"Start: {dlg_start_date.strftime('%Y-%m-%d')} • "
+                f"Total: {_dlg_total_bd} bd • "
+                f"Projected completion: {_dlg_schedule[-1]['end'].strftime('%Y-%m-%d')}"
+            )
+            st.success(f"Expected delivery date: {_dlg_schedule[-1]['end'].strftime('%Y-%m-%d')}")
+            _m_est = _dlg_total_bd / 21.75 if _dlg_total_bd else 0.0
+            st.info(f"Approximate duration: {_m_est:.1f} months ({_m_est/12:.2f} years)")
+
+            st.markdown("**Milestones schedule**")
+            for item in _dlg_schedule:
+                st.write(f"- {item['name']}: {item['start'].strftime('%Y-%m-%d')} → {item['end'].strftime('%Y-%m-%d')} ({item['duration_bd']} bd)")
+
+            # Gantt chart
+            show_chart = st.checkbox("Show Gantt chart", value=True, key="dlg_timeline_show_chart")
+            if show_chart:
+                df = pd.DataFrame([
+                    {"Task": it["name"], "Start": it["start"], "Finish": it["end"], "Duration (bd)": it["duration_bd"]}
+                    for it in _dlg_schedule
+                ])
+                if not df.empty:
+                    fig = px.timeline(df, x_start="Start", x_end="Finish", y="Task", color="Task",
+                                      color_discrete_sequence=px.colors.qualitative.Set3)
+                    fig.update_yaxes(autorange="reversed")
+                    fig.update_layout(height=380, margin=dict(l=0, r=0, t=30, b=0))
+                    st.plotly_chart(fig, width="stretch")
+        else:
+            st.info("Add at least one milestone to build a timeline.")
+
+        # ── Submit ───────────────────────────────────────────────────
+        st.divider()
+        if st.button("Submit Staffing & Timeline", type="primary", use_container_width=True):
+            ss["timeline_build_buy"] = ss.get("dlg_timeline_build_buy", "Build In-House")
+            ss["timeline_staff_count"] = int(ss.get("dlg_timeline_staff_count", 1))
+            ss["timeline_external_staff_count"] = int(ss.get("dlg_timeline_external_staff_count", 0))
+            ss["timeline_staffing_plan"] = ss.get("dlg_timeline_staffing_plan", "")
+            ss["timeline_holiday_region"] = ss.get("dlg_timeline_holiday_region", "None")
+            ss["timeline_start_date"] = dlg_start_date
+            # Sync milestones
+            ss["timeline_milestones"] = [dict(m) for m in ss.get("_dlg_timeline_milestones", [])]
+            # Clean up working copy
+            ss.pop("_dlg_timeline_milestones", None)
             st.rerun()
 
     _DIALOGS = {
@@ -2340,6 +2528,7 @@ Plan the **WHEN** and **WHO** of delivery:
                 "dlg_pres_", "dlg_obs_", "dlg_intent_", "dlg_collector_",
                 "dlg_exec_", "dlg_orch_", "dlg_my_role_", "dlg_stakeholders_",
                 "dlg_wizard_", "dlg_no_move_forward", "dlg_dep_",
+                "dlg_timeline_", "dlg_tl_",
             )
             _str_keys = (
                 "obs_go_no_go", "obs_add_logic_choice", "obs_add_logic_text",
@@ -2365,6 +2554,8 @@ Plan the **WHEN** and **WHO** of delivery:
                 if k in st.session_state:
                     st.session_state[k] = ""
             st.session_state["stakeholders_choices"] = {}
+            # Clean up dialog working copies
+            st.session_state.pop("_dlg_timeline_milestones", None)
             # Full page rerun needed to reset expander widgets too
             st.rerun(scope="app")
 
