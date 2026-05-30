@@ -48,7 +48,10 @@ if _project_root not in _sys.path:
     _sys.path.insert(0, _project_root)
 
 import utils
-from puzzle_progress import render_puzzle_progress, PUZZLE_SECTIONS, get_completion_state
+from puzzle_progress import (
+    render_puzzle_progress, PUZZLE_SECTIONS, FRAME_SECTIONS,
+    get_completion_state, get_frame_completion_state,
+)
 
 # Optional lightweight holiday support
 try:
@@ -2348,8 +2351,15 @@ def solution_wizard_main():
             for k in PUZZLE_SECTIONS
         }
 
-        # Render clickable puzzle
-        render_puzzle_progress(_merged_state, clickable=True)
+        # Frame completion (context + planning sections)
+        _real_frame = get_frame_completion_state()
+        _merged_frame = {
+            k: st.session_state["_demo_completed"].get(k, False) or _real_frame.get(k, False)
+            for k in FRAME_SECTIONS
+        }
+
+        # Render clickable puzzle with frame
+        render_puzzle_progress(_merged_state, frame_completed=_merged_frame, clickable=True)
 
         # Section buttons (alternative to clicking puzzle pieces)
         st.markdown("#### Click a puzzle piece or button to fill out its form:")
@@ -2461,7 +2471,10 @@ def solution_wizard_main():
                 st.session_state[k] = "— Select one —"
             st.session_state["stakeholders_choices"] = {}
             # Reset puzzle tracking
-            st.session_state["_demo_completed"] = {key: False for key in PUZZLE_SECTIONS}
+            st.session_state["_demo_completed"] = {
+                **{key: False for key in PUZZLE_SECTIONS},
+                **{key: False for key in FRAME_SECTIONS},
+            }
             st.session_state.pop("_dlg_timeline_milestones", None)
             # Initiative defaults
             st.session_state["_wizard_automation_title"] = "My new network automation project"
@@ -2482,10 +2495,6 @@ def solution_wizard_main():
                        "timeline_staffing_plan", "timeline_holiday_region", "timeline_start_date",
                        "timeline_milestones"):
                 st.session_state.pop(k, None)
-            # Minimal sane dependency defaults
-            st.session_state["dep_network_infra"] = True
-            st.session_state["dep_revision_control"] = True
-            st.session_state["dep_revision_control_details"] = "GitHub"
             st.rerun()
 
     st.divider()

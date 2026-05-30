@@ -3,8 +3,10 @@ Tests for puzzle_progress module.
 
 Covers:
 - PUZZLE_SECTIONS structure
+- FRAME_SECTIONS structure
 - check_section_completion logic for each section
-- get_completion_state aggregation
+- check_frame_completion logic for each frame section
+- get_completion_state / get_frame_completion_state aggregation
 - Orchestration sentinel handling (the bug we fixed)
 """
 
@@ -20,8 +22,11 @@ sys.modules["streamlit.components.v1"] = MagicMock()
 
 from puzzle_progress import (
     PUZZLE_SECTIONS,
+    FRAME_SECTIONS,
     check_section_completion,
+    check_frame_completion,
     get_completion_state,
+    get_frame_completion_state,
 )
 
 
@@ -194,4 +199,181 @@ class TestGetCompletionState:
             "exec_0": True,
         })
         state = get_completion_state()
+        assert all(v is True for v in state.values())
+
+
+# ── FRAME_SECTIONS structure ──────────────────────────────────────
+
+
+def test_frame_sections_has_all_four():
+    expected = {"problem_statement", "stakeholders", "dependencies", "staffing_timeline"}
+    assert set(FRAME_SECTIONS.keys()) == expected
+
+
+def test_frame_sections_have_required_fields():
+    for key, info in FRAME_SECTIONS.items():
+        assert "label" in info, f"{key} missing label"
+        assert "color" in info, f"{key} missing color"
+        assert "position" in info, f"{key} missing position"
+
+
+def test_frame_sections_positions():
+    positions = {info["position"] for info in FRAME_SECTIONS.values()}
+    assert positions == {"top", "bottom", "left", "right"}
+
+
+# ── check_frame_completion ─────────────────────────────────────────
+
+
+class TestCheckFrameCompletion:
+
+    def _mock_session_state(self, data: dict):
+        st_mock.session_state = data
+
+    # -- problem_statement --
+
+    def test_problem_statement_incomplete_when_empty(self):
+        self._mock_session_state({})
+        assert check_frame_completion("problem_statement") is False
+
+    def test_problem_statement_incomplete_with_default_title(self):
+        self._mock_session_state({
+            "_wizard_automation_title": "My new network automation project"
+        })
+        assert check_frame_completion("problem_statement") is False
+
+    def test_problem_statement_complete_with_custom_title(self):
+        self._mock_session_state({
+            "_wizard_automation_title": "Automate VLAN provisioning"
+        })
+        assert check_frame_completion("problem_statement") is True
+
+    def test_problem_statement_complete_with_problem_text(self):
+        self._mock_session_state({
+            "_wizard_problem_statement": "Manual config takes too long"
+        })
+        assert check_frame_completion("problem_statement") is True
+
+    def test_problem_statement_incomplete_with_blank_strings(self):
+        self._mock_session_state({
+            "_wizard_automation_title": "  ",
+            "_wizard_problem_statement": "",
+        })
+        assert check_frame_completion("problem_statement") is False
+
+    # -- stakeholders --
+
+    def test_stakeholders_incomplete_when_empty(self):
+        self._mock_session_state({})
+        assert check_frame_completion("stakeholders") is False
+
+    def test_stakeholders_complete_with_choices(self):
+        self._mock_session_state({
+            "stakeholders_choices": {"Network Engineers": True}
+        })
+        assert check_frame_completion("stakeholders") is True
+
+    def test_stakeholders_incomplete_with_empty_dict(self):
+        self._mock_session_state({"stakeholders_choices": {}})
+        assert check_frame_completion("stakeholders") is False
+
+    def test_stakeholders_complete_with_other_text(self):
+        self._mock_session_state({
+            "stakeholders_choices": {},
+            "stakeholders_other_text": "Security team",
+        })
+        assert check_frame_completion("stakeholders") is True
+
+    # -- dependencies --
+
+    def test_dependencies_incomplete_when_empty(self):
+        self._mock_session_state({})
+        assert check_frame_completion("dependencies") is False
+
+    def test_dependencies_complete_with_dep_checked(self):
+        self._mock_session_state({"dep_network_access": True})
+        assert check_frame_completion("dependencies") is True
+
+    def test_dependencies_incomplete_with_false_dep(self):
+        self._mock_session_state({"dep_network_access": False})
+        assert check_frame_completion("dependencies") is False
+
+    def test_dependencies_ignores_detail_strings(self):
+        self._mock_session_state({"dep_network_access_details": "some detail"})
+        assert check_frame_completion("dependencies") is False
+
+    # -- staffing_timeline --
+
+    def test_staffing_incomplete_when_empty(self):
+        self._mock_session_state({})
+        assert check_frame_completion("staffing_timeline") is False
+
+    def test_staffing_incomplete_with_only_start_date(self):
+        """Default date alone should NOT count as complete."""
+        import datetime
+        self._mock_session_state({"timeline_start_date": datetime.date.today()})
+        assert check_frame_completion("staffing_timeline") is False
+
+    def test_staffing_complete_with_milestones(self):
+        self._mock_session_state({
+            "timeline_milestones": [{"name": "Phase 1", "duration": 10}]
+        })
+        assert check_frame_completion("staffing_timeline") is True
+
+    def test_staffing_complete_with_staff_count(self):
+        self._mock_session_state({"timeline_staff_count": 2})
+        assert check_frame_completion("staffing_timeline") is True
+
+    def test_staffing_complete_with_external_staff(self):
+        self._mock_session_state({"timeline_external_staff_count": 1})
+        assert check_frame_completion("staffing_timeline") is True
+
+    def test_staffing_complete_with_plan_text(self):
+        self._mock_session_state({"timeline_staffing_plan": "Two engineers part-time"})
+        assert check_frame_completion("staffing_timeline") is True
+
+    def test_staffing_incomplete_with_zero_staff(self):
+        self._mock_session_state({"timeline_staff_count": 0, "timeline_external_staff_count": 0})
+        assert check_frame_completion("staffing_timeline") is False
+
+    # -- unknown --
+
+    def test_unknown_frame_section_returns_false(self):
+        self._mock_session_state({})
+        assert check_frame_completion("nonexistent") is False
+
+
+# ── get_frame_completion_state ─────────────────────────────────────
+
+
+class TestGetFrameCompletionState:
+
+    def _mock_session_state(self, data: dict):
+        st_mock.session_state = data
+
+    def test_all_incomplete(self):
+        self._mock_session_state({})
+        state = get_frame_completion_state()
+        assert all(v is False for v in state.values())
+        assert set(state.keys()) == set(FRAME_SECTIONS.keys())
+
+    def test_mixed_completion(self):
+        self._mock_session_state({
+            "stakeholders_choices": {"Ops": True},
+            "dep_firewall": True,
+        })
+        state = get_frame_completion_state()
+        assert state["stakeholders"] is True
+        assert state["dependencies"] is True
+        assert state["problem_statement"] is False
+        assert state["staffing_timeline"] is False
+
+    def test_all_complete(self):
+        self._mock_session_state({
+            "_wizard_automation_title": "VLAN automation",
+            "stakeholders_choices": {"Ops": True},
+            "dep_firewall": True,
+            "timeline_milestones": [{"name": "Done", "duration": 5}],
+        })
+        state = get_frame_completion_state()
         assert all(v is True for v in state.values())
