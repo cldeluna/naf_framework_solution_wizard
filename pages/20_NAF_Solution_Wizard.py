@@ -2390,6 +2390,14 @@ def solution_wizard_main():
     _puzzle_fragment()
 
     # ── Project Context & Planning button cards ──────────────────────
+    # Compute frame completion for button icons
+    _real_frame = get_frame_completion_state()
+    _demo = st.session_state.get("_demo_completed", {})
+    _frame_done = {
+        k: _demo.get(k, False) or _real_frame.get(k, False)
+        for k in FRAME_SECTIONS
+    }
+
     st.markdown("")  # spacer
     col_ctx, col_plan = st.columns(2)
 
@@ -2404,10 +2412,12 @@ def solution_wizard_main():
         )
         _ctx_c1, _ctx_c2 = st.columns(2)
         with _ctx_c1:
-            if st.button("📋 Problem Statement", key="btn_problem_stmt", use_container_width=True):
+            _ic = "✅" if _frame_done["problem_statement"] else "📋"
+            if st.button(f"{_ic} Problem Statement", key="btn_problem_stmt", use_container_width=True):
                 _dlg_problem_statement()
         with _ctx_c2:
-            if st.button("👥 Stakeholders", key="btn_stakeholders", use_container_width=True):
+            _ic = "✅" if _frame_done["stakeholders"] else "👥"
+            if st.button(f"{_ic} Stakeholders", key="btn_stakeholders", use_container_width=True):
                 _dlg_stakeholders()
 
     with col_plan:
@@ -2421,10 +2431,12 @@ def solution_wizard_main():
         )
         _pln_c1, _pln_c2 = st.columns(2)
         with _pln_c1:
-            if st.button("🔗 Dependencies", key="btn_dependencies", use_container_width=True):
+            _ic = "✅" if _frame_done["dependencies"] else "🔗"
+            if st.button(f"{_ic} Dependencies", key="btn_dependencies", use_container_width=True):
                 _dlg_dependencies()
         with _pln_c2:
-            if st.button("📅 Staffing & Timeline", key="btn_staffing", use_container_width=True):
+            _ic = "✅" if _frame_done["staffing_timeline"] else "📅"
+            if st.button(f"{_ic} Staffing & Timeline", key="btn_staffing", use_container_width=True):
                 _dlg_staffing_timeline()
 
     # ── Reset All Sections ───────────────────────────────────────────
